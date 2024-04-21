@@ -1,35 +1,14 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
-import React, { useState } from 'react';
-import {
-  StyleSheet,
-  Text,
-  Button,
-  View,
-  SafeAreaView,
-  TextInput,
-} from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import React from 'react';
+import { StyleSheet } from 'react-native';
+import AuthStackNavigator from './src/navigation/AuthStackNavigator';
 
 function App(): React.JSX.Element {
-  const [name, setName] = useState('');
-
-  const handleInputChange = (text: string) => {
-    console.log(text);
-    setName(text)
-  }
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.inputContainer}>
-        <Text>이름</Text>
-        <TextInput style={styles.input} value={name} onChangeText={handleInputChange}/>
-      </View>
-    </SafeAreaView>
+    <NavigationContainer>
+      <AuthStackNavigator/>
+    </NavigationContainer>
   );
 }
 
