@@ -8,7 +8,7 @@ interface RootNavigatorProps {
 }
 
 function RootNavigator({}: RootNavigatorProps) {
-    const isLoggedIn = true;
+    const isLoggedIn = false;
 
   return (
     <>{ isLoggedIn ? <MainDrawerNavigator /> : <AuthStackNavigator/> }</>
