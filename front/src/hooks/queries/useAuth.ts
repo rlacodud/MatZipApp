@@ -1,8 +1,9 @@
-import { useMutation } from "@tanstack/react-query";
-import { postLogin, postSignup } from "../../api/auth";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { getAccessToken, postLogin, postSignup } from "../../api/auth";
 import { UseMutationCustomOptions } from "../../types/common";
-import { setEncryptStorage } from "../../utils";
-import { setHeader } from "../../utils/header";
+import { removeEncryptStorage, setEncryptStorage } from "../../utils";
+import { removeHeader, setHeader } from "../../utils/header";
+import { useEffect } from "react";
 
 function useSignup(mutationOptions?: UseMutationCustomOptions) {
   return useMutation({
@@ -22,5 +23,30 @@ function useLogin(mutationOptions?: UseMutationCustomOptions) {
 
     },
     ...mutationOptions,
+  })
+}
+
+function useGetRefreshToken() {
+  const {isSuccess, data, isError} = useQuery({
+    queryKey: ['auth', 'getAccessToken'],
+    queryFn: getAccessToken,
+    staleTime: 1000 * 60 * 30 - 1000 * 60 * 3,
+    refetchInterval: 1000 * 60 * 30 - 1000 * 60 * 3,
+    refetchOnReconnect: true,
+    refetchIntervalInBackground: true,
+  });
+
+  useEffect(() => {
+    if (isSuccess) {
+      setHeader('Authorization', `Bearer ${data.accessToken}`);
+      setEncryptStorage('refreshToken', data.refreshToken);
+    }
+  }, [isSuccess]);
+
+  useEffect(() => {
+    if (isError) {
+      removeHeader('Authorization');
+      removeEncryptStorage('refreshToken');
+    }
   })
 }
