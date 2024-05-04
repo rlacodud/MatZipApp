@@ -9,7 +9,7 @@ interface RootNavigatorProps {
 }
 
 function RootNavigator({}: RootNavigatorProps) {
-    const isLogin = useAuth();
+    const {isLogin} = useAuth();
 
   return (
     <>{ isLogin ? <MainDrawerNavigator /> : <AuthStackNavigator/> }</>

@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { getAccessToken, getProfile, postLogin, postSignup } from "../../api/auth";
+import { getAccessToken, getProfile, logout, postLogin, postSignup } from "../../api/auth";
 import { UseMutationCustomOptions, UseQueryCustomOptions } from "../../types/common";
 import { removeEncryptStorage, setEncryptStorage } from "../../utils";
 import { removeHeader, setHeader } from "../../utils/header";
@@ -59,7 +59,21 @@ function useGetProfile(queryOptions?: UseQueryCustomOptions) {
   return useQuery({
     queryKey: ['auth', 'getProfile'],
     queryFn: getProfile,
-  })
+    ...queryOptions,
+  });
+}
+function useLogout(mutationOptions?: UseMutationCustomOptions) {
+  return useMutation({
+    mutationFn: logout,
+    onSuccess: () => {
+      removeHeader('Authorization');
+      removeEncryptStorage('refreshToken');
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({queryKey: ['auth']});
+    },
+    ...mutationOptions
+  });
 }
 
 function useAuth() {
@@ -70,8 +84,9 @@ function useAuth() {
   });
   const isLogin = getProfileQuery.isSuccess;
   const loginMutation = useLogin();
+  const logoutMutation = useLogout();
 
-  return {signupMutation, loginMutation, isLogin, getProfileQuery};
+  return {signupMutation, loginMutation, logoutMutation, isLogin, getProfileQuery};
 }
 
 export default useAuth;
