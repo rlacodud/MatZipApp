@@ -1,6 +1,6 @@
-import { UseQueryOptions, useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { getAccessToken, getProfile, postLogin, postSignup } from "../../api/auth";
-import { UseMutationCustomOptions } from "../../types/common";
+import { UseMutationCustomOptions, UseQueryCustomOptions } from "../../types/common";
 import { removeEncryptStorage, setEncryptStorage } from "../../utils";
 import { removeHeader, setHeader } from "../../utils/header";
 import { useEffect } from "react";
@@ -55,9 +55,23 @@ function useGetRefreshToken() {
   return {isSuccess, isError};
 }
 
-function useGetProfile(queryOptions?: UseQueryOptions) {
+function useGetProfile(queryOptions?: UseQueryCustomOptions) {
   return useQuery({
     queryKey: ['auth', 'getProfile'],
     queryFn: getProfile,
   })
 }
+
+function useAuth() {
+  const signupMutation = useSignup();
+  const refreshTokenQuery = useGetRefreshToken();
+  const getProfileQuery = useGetProfile({
+    enabled: refreshTokenQuery.isSuccess
+  });
+  const isLogin = getProfileQuery.isSuccess;
+  const loginMutation = useLogin();
+
+  return {signupMutation, loginMutation, isLogin, getProfileQuery};
+}
+
+export default useAuth;
