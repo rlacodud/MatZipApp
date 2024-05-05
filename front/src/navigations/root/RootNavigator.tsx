@@ -1,8 +1,8 @@
 import React from 'react';
 import {StyleSheet} from 'react-native';
-import AuthStackNavigator from '../stack/AuthStackNavigator';
-import MainDrawerNavigator from '../drawer/MainDrawerNavigator';
-import useAuth from '../../hooks/queries/useAuth';
+import AuthStackNavigator from '@/navigations/stack/AuthStackNavigator';
+import MainDrawerNavigator from '@/navigations/drawer/MainDrawerNavigator';
+import useAuth from '@/hooks/queries/useAuth';
 
 interface RootNavigatorProps {
 

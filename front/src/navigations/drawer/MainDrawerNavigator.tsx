@@ -1,9 +1,9 @@
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import React from 'react';
 import {StyleSheet} from 'react-native';
-import MapHomeScreen from '../../screens/map/MapHomeScreen';
-import FeedHomeScreen from '../../screens/feed/FeedHomeScreen';
-import CalendarHomeScreen from '../../screens/calendar/CalendarHomeScreen';
+import MapHomeScreen from '@/screens/map/MapHomeScreen';
+import FeedHomeScreen from '@/screens/feed/FeedHomeScreen';
+import CalendarHomeScreen from '@/screens/calendar/CalendarHomeScreen';
 
 interface MainDrawerNavigatorProps {
 

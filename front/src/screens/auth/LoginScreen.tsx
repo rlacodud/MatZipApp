@@ -1,10 +1,10 @@
 import React, { useRef } from 'react';
 import { StyleSheet, View, SafeAreaView, TextInput } from 'react-native';
-import InputFiled from '../../components/InputFiled';
-import CustomButton from '../../components/CustomButton';
-import useForm from '../../hooks/useForm';
-import { validateLogin } from '../../utils';
-import useAuth from '../../hooks/queries/useAuth';
+import InputFiled from '@/components/InputFiled';
+import CustomButton from '@/components/CustomButton';
+import useForm from '@/hooks/useForm';
+import { validateLogin } from '@/utils';
+import useAuth from '@/hooks/queries/useAuth';
 
 interface LoginScreenProps {
 
