@@ -1,0 +1,6 @@
+module Pods_MatzipApp_MatzipAppTests {
+  umbrella header "Pods-MatzipApp-MatzipAppTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
