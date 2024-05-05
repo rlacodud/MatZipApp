@@ -21,7 +21,7 @@ function SignupScreen({}: SignupScreenProps) {
   });
 
   const handleSubmit = () => {
-    const {email, password} = signup.values
+    const {email, password} = signup.values;
     signupMutation.mutate({email, password}, {
       onSuccess: () => loginMutation.mutate({email, password}),
     });

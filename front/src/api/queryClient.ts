@@ -7,8 +7,8 @@ const queryClient = new QueryClient({
     },
     mutations: {
       retry: false,
-    }
-  }
+    },
+  },
 });
 
 export {queryClient};

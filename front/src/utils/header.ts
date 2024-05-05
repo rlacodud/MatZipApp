@@ -6,7 +6,7 @@ function setHeader(key: string, value: string) {
 
 function removeHeader(key: string) {
   if (!axiosInstance.defaults.headers.common[key]) {
-      return;
+    return;
   }
 
   delete axiosInstance.defaults.headers.common[key];
