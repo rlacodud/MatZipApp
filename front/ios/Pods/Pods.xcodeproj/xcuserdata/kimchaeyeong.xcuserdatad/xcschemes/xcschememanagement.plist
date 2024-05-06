@@ -359,6 +359,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>react-native-geolocation.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>react-native-google-maps.xcscheme</key>
 		<dict>
 			<key>isShown</key>
