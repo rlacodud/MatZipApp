@@ -1,11 +1,11 @@
 import { colors } from "@/constants";
 import useAuth from "@/hooks/queries/useAuth";
 import { DrawerContentComponentProps, DrawerContentScrollView, DrawerItemList } from "@react-navigation/drawer";
-import { SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { Image, SafeAreaView, StyleSheet, Text, View } from "react-native";
 
 function CustomDrawerContent(props: DrawerContentComponentProps) {
   const {getProfileQuery} = useAuth();
-  const {email, ninkname, imageUrl, kakaoImageUrl} = getProfileQuery.data || {};
+  const {email, ninkname, imageUri, kakaoImageUri} = getProfileQuery.data || {};
   return (
     <SafeAreaView style={styles.container}>
       <DrawerContentScrollView
@@ -14,6 +14,29 @@ function CustomDrawerContent(props: DrawerContentComponentProps) {
         contentContainerStyle={styles.contentContainer}
       >
         <View style={styles.userInfoContainer}>
+          <View style={styles.userImageContainer}>
+            {/* 유저 이미지와 카카오톡 이미지 전부 존재하지 않는 경우 */}
+            {imageUri === null && kakaoImageUri === null &&
+              <Image
+                source={require('@/assets/user-default.png')}
+                style={styles.userImage}
+              />
+            }
+            {/* 유저 이미지는 없고 카카오톡 이미지는 존재하는 경우 */}
+            {imageUri === null && !!kakaoImageUri && (
+              <Image
+                source={{uri: kakaoImageUri}}
+                style={styles.userImage}
+              />
+            )}
+            {/* 유저 이미지가 존재하는 경우 */}
+            {imageUri !== null && (
+              <Image
+                source={{uri: imageUri}}
+                style={styles.userImage}
+              />
+            )}
+          </View>
           <Text style={styles.nameText}>{ninkname ?? email}</Text>
         </View>
         <DrawerItemList {...props}/>
@@ -37,6 +60,17 @@ const styles = StyleSheet.create({
   },
   nameText: {
     color: colors.BLACK
+  },
+  userImageContainer: {
+    width: 70,
+    height: 70,
+    borderRadius: 35,
+    marginBottom: 10,
+  },
+  userImage: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 35,
   }
 })
 
