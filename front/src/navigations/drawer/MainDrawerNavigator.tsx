@@ -4,8 +4,9 @@ import {StyleSheet} from 'react-native';
 import FeedHomeScreen from '@/screens/feed/FeedHomeScreen';
 import CalendarHomeScreen from '@/screens/calendar/CalendarHomeScreen';
 import MapStackNavigator, { MapStackParamList } from '@/navigations/stack/MapStackNavigator';
-import { mainNavigations } from '@/constants';
-import { NavigatorScreenParams } from '@react-navigation/native';
+import { colors, mainNavigations } from '@/constants';
+import { NavigatorScreenParams, RouteProp } from '@react-navigation/native';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 export type MainDrawerParamList = {
   [mainNavigations.HOME]: NavigatorScreenParams<MapStackParamList>;
@@ -15,12 +16,40 @@ export type MainDrawerParamList = {
 
 const Drawer = createDrawerNavigator<MainDrawerParamList>();
 
+function DrawerIcons(route: RouteProp<MainDrawerParamList>, focused: Boolean) {
+  let iconName = '';
+
+  switch(route.name) {
+    case mainNavigations.HOME: {
+      iconName = 'location-on'
+      break
+    }
+    case mainNavigations.FEED: {
+      iconName = 'book'
+      break
+    }
+    case mainNavigations.CALENDAR: {
+      iconName = 'event-note';
+      break
+    }
+  }
+
+  return (
+    <MaterialIcons
+      name={iconName}
+      size={18}
+      color={focused ? colors.BLACK : colors.GRAY_500}
+    />
+  );
+}
+
 function MainDrawerNavigator() {
   return (
-    <Drawer.Navigator screenOptions={{
+    <Drawer.Navigator screenOptions={({route}) => ({
       headerShown: false,
       drawerType: 'front',
-    }}>
+      drawerIcon: ({focused}) => DrawerIcons(route, focused)
+    })}>
       <Drawer.Screen
         name={mainNavigations.HOME}
         component={MapStackNavigator}
