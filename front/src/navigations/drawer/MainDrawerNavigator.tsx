@@ -7,6 +7,7 @@ import MapStackNavigator, { MapStackParamList } from '@/navigations/stack/MapSta
 import { colors, mainNavigations } from '@/constants';
 import { NavigatorScreenParams, RouteProp } from '@react-navigation/native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import { CustomDrawerContent } from './CustomDrawerContent';
 
 export type MainDrawerParamList = {
   [mainNavigations.HOME]: NavigatorScreenParams<MapStackParamList>;
@@ -45,22 +46,25 @@ function DrawerIcons(route: RouteProp<MainDrawerParamList>, focused: Boolean) {
 
 function MainDrawerNavigator() {
   return (
-    <Drawer.Navigator screenOptions={({route}) => ({
-      headerShown: false,
-      drawerType: 'front',
-      drawerStyle: {
-        width: Dimensions.get('screen').width * 0.6,
-        backgroundColor: colors.WHITE,
-      },
-      drawerActiveTintColor: colors.BLACK,
-      drawerInactiveTintColor: colors.GRAY_500,
-      drawerActiveBackgroundColor: colors.PINK_200,
-      drawerInactiveBackgroundColor: colors.GRAY_100,
-      drawerLabelStyle: {
-        fontWeight: "600",
-      },
-      drawerIcon: ({focused}) => DrawerIcons(route, focused)
-    })}>
+    <Drawer.Navigator
+      drawerContent={CustomDrawerContent}
+      screenOptions={({route}) => ({
+        headerShown: false,
+        drawerType: 'front',
+        drawerStyle: {
+          width: Dimensions.get('screen').width * 0.6,
+          backgroundColor: colors.WHITE,
+        },
+        drawerActiveTintColor: colors.BLACK,
+        drawerInactiveTintColor: colors.GRAY_500,
+        drawerActiveBackgroundColor: colors.PINK_200,
+        drawerInactiveBackgroundColor: colors.GRAY_100,
+        drawerLabelStyle: {
+          fontWeight: "600",
+        },
+        drawerIcon: ({focused}) => DrawerIcons(route, focused)
+      })}
+      >
       <Drawer.Screen
         name={mainNavigations.HOME}
         component={MapStackNavigator}
