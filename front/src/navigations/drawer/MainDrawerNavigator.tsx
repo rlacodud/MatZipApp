@@ -1,6 +1,6 @@
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import React from 'react';
-import {StyleSheet} from 'react-native';
+import {Dimensions, StyleSheet} from 'react-native';
 import FeedHomeScreen from '@/screens/feed/FeedHomeScreen';
 import CalendarHomeScreen from '@/screens/calendar/CalendarHomeScreen';
 import MapStackNavigator, { MapStackParamList } from '@/navigations/stack/MapStackNavigator';
@@ -48,6 +48,17 @@ function MainDrawerNavigator() {
     <Drawer.Navigator screenOptions={({route}) => ({
       headerShown: false,
       drawerType: 'front',
+      drawerStyle: {
+        width: Dimensions.get('screen').width * 0.6,
+        backgroundColor: colors.WHITE,
+      },
+      drawerActiveTintColor: colors.BLACK,
+      drawerInactiveTintColor: colors.GRAY_500,
+      drawerActiveBackgroundColor: colors.PINK_200,
+      drawerInactiveBackgroundColor: colors.GRAY_100,
+      drawerLabelStyle: {
+        fontWeight: "600",
+      },
       drawerIcon: ({focused}) => DrawerIcons(route, focused)
     })}>
       <Drawer.Screen
@@ -55,6 +66,7 @@ function MainDrawerNavigator() {
         component={MapStackNavigator}
         options={{
           title: '홈',
+          swipeEnabled: false,
         }}
       />
       <Drawer.Screen
