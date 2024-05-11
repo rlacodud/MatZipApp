@@ -13,6 +13,7 @@ import useUserLocation from '@/hooks/useUserLocation';
 import usePermission from '@/hooks/usePermission';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import mapStyle from '@/style/mapStyle';
 
 type Navigation = CompositeNavigationProp<
   StackNavigationProp<MapStackParamList>,
@@ -48,6 +49,7 @@ const MapHomeScreen = () => {
         showsUserLocation
         followsUserLocation
         showsMyLocationButton={false}
+        customMapStyle={mapStyle}
       />
       <Pressable style={[styles.drawerButton, {top: inset.top || 20}]}
         onPress={() => navigation.openDrawer()}
