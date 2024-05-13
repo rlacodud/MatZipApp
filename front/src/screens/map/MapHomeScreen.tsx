@@ -1,7 +1,6 @@
 import React, { useRef, useState } from 'react';
-import {Pressable, StyleSheet, Text, View} from 'react-native';
-import useAuth from '@/hooks/queries/useAuth';
-import MapView, {Callout, LatLng, LongPressEvent, Marker, PROVIDER_GOOGLE} from 'react-native-maps';
+import {Pressable, StyleSheet, View} from 'react-native';
+import MapView, {Callout, LatLng, LongPressEvent, PROVIDER_GOOGLE} from 'react-native-maps';
 import { colors } from '@/constants';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { CompositeNavigationProp, useNavigation } from '@react-navigation/native';
@@ -24,7 +23,6 @@ type Navigation = CompositeNavigationProp<
 const MapHomeScreen = () => {
   const inset = useSafeAreaInsets();
   const navigation = useNavigation<Navigation>();
-  const {logoutMutation} = useAuth();
   const mapRef = useRef<MapView | null>(null);
   const {userLocation, isUserLocationError} = useUserLocation();
   const [selectLocation, setSelectLocation] = useState<LatLng>();
