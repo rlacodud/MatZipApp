@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
-import {Pressable, StyleSheet, View} from 'react-native';
+import {Alert, Pressable, StyleSheet, View} from 'react-native';
 import MapView, {Callout, LatLng, LongPressEvent, PROVIDER_GOOGLE} from 'react-native-maps';
-import { colors } from '@/constants';
+import { alerts, colors, mapNavigations } from '@/constants';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { CompositeNavigationProp, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -25,11 +25,25 @@ const MapHomeScreen = () => {
   const navigation = useNavigation<Navigation>();
   const mapRef = useRef<MapView | null>(null);
   const {userLocation, isUserLocationError} = useUserLocation();
-  const [selectLocation, setSelectLocation] = useState<LatLng>();
+  const [selectLocation, setSelectLocation] = useState<LatLng | null>();
   usePermission('LOCATION');
 
   const handleLongPressMapView = ({nativeEvent}: LongPressEvent) => {
     setSelectLocation(nativeEvent.coordinate);
+  }
+
+  const handlePressAddPost = () => {
+    if(!selectLocation) {
+      return Alert.alert(
+        alerts.NOT_SELECTED_LOCATION.TITLE, 
+        alerts.NOT_SELECTED_LOCATION.DESCRIPTION
+      );
+    }
+
+    navigation.navigate(mapNavigations.ADD_POST, {
+      location: selectLocation
+    });
+    setSelectLocation(null);
   }
 
   const handlePressUserLocation = () => {
@@ -79,8 +93,14 @@ const MapHomeScreen = () => {
       </Pressable>
       <View style={styles.buttonList}>
         <Pressable
+            style={styles.mapButton}
+            onPress={handlePressAddPost}
+          >
+          <MaterialIcons name='add' color={colors.WHITE} size={25}/>
+        </Pressable>
+        <Pressable
           style={styles.mapButton}
-          onPress={() => handlePressUserLocation()}
+          onPress={handlePressUserLocation}
         >
           <MaterialIcons name='my-location' color={colors.WHITE} size={25}/>
         </Pressable>
