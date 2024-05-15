@@ -30,6 +30,7 @@ const InputFiled = forwardRef(({
         style={[
           styles.container,
           disabled && styles.disabled,
+          props.multiline && styles.multiLine,
           touched && Boolean(error) && styles.inputError]}
         >
           <View style={Boolean(icon) && styles.innerContainer}>
@@ -61,6 +62,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 5,
+  },
+  multiLine: {
+    paddingBottom: deviceHeight > 700 ? 45 : 30,
   },
   input: {
     fontSize: 16,
