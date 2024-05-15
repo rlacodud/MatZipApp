@@ -1,3 +1,4 @@
+import AddPostHeaderRight from '@/components/AddPostHeaderRight';
 import CustomButton from '@/components/CustomButton';
 import InputFiled from '@/components/InputFiled';
 import { colors, mapNavigations } from '@/constants';
@@ -5,8 +6,8 @@ import useForm from '@/hooks/useForm';
 import { MapStackParamList } from '@/navigations/stack/MapStackNavigator';
 import { validateAddPost } from '@/utils';
 import { StackScreenProps } from '@react-navigation/stack';
-import React, { useRef } from 'react';
-import {ScrollView, StyleSheet, TextInput, View} from 'react-native';
+import React, { useEffect, useRef } from 'react';
+import {ScrollView, StyleSheet, Text, TextInput, View} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Opticons from 'react-native-vector-icons/Octicons';
 
@@ -15,12 +16,23 @@ type AddPostScreenProps = StackScreenProps<
   typeof mapNavigations.ADD_POST
 >
 
-function AddPostScreen({route}: AddPostScreenProps) {
+function AddPostScreen({route, navigation}: AddPostScreenProps) {
   const {location} = route.params;
   const descriptionRef = useRef<TextInput | null>(null);
   const addPost = useForm({
     initialValue: {title: '', description: '',},
     validate: validateAddPost,
+  });
+
+  const handleSubmit = () => {
+    
+  }
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () =>
+        AddPostHeaderRight(handleSubmit),
+    });
   });
 
   return (
