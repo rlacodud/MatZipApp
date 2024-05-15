@@ -1,6 +1,6 @@
 import { createPost } from "@/api";
 import { queryClient } from "@/api/queryClient";
-import { colors, queryKeys } from "@/constants";
+import { queryKeys } from "@/constants";
 import { UseMutationCustomOptions } from "@/types/common";
 import { Marker } from "@/types/domain";
 import { useMutation } from "@tanstack/react-query";
