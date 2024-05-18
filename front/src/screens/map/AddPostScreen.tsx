@@ -1,6 +1,7 @@
 import AddPostHeaderRight from '@/components/AddPostHeaderRight';
 import CustomButton from '@/components/CustomButton';
 import InputFiled from '@/components/InputFiled';
+import MarkerSelector from '@/components/MarkerSelector';
 import { colors, mapNavigations } from '@/constants';
 import useMutateCreatePost from '@/hooks/queries/useMutateCreatePost';
 import useForm from '@/hooks/useForm';
@@ -30,6 +31,10 @@ function AddPostScreen({route, navigation}: AddPostScreenProps) {
   const [markerColor, setMarkerColor] = useState<MarkerColor>('RED');
   const [score, setScore] = useState(5);
   const address = useGetAddress(location);
+
+  const handleSelectMarker = (name: MarkerColor) => {
+    setMarkerColor(name);
+  }
 
   const handleSubmit = () => {
     const body = {
@@ -82,6 +87,10 @@ function AddPostScreen({route, navigation}: AddPostScreenProps) {
             returnKeyType='next'
             blurOnSubmit={false}
             {...addPost.getTextInputProps('description')}
+          />
+          <MarkerSelector 
+            markerColor={markerColor}
+            onPressMarker={handleSelectMarker}
           />
         </View>
       </ScrollView>
