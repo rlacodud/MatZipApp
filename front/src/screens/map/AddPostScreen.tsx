@@ -4,6 +4,7 @@ import InputFiled from '@/components/InputFiled';
 import { colors, mapNavigations } from '@/constants';
 import useMutateCreatePost from '@/hooks/queries/useMutateCreatePost';
 import useForm from '@/hooks/useForm';
+import useGetAddress from '@/hooks/useGetAddress';
 import { MapStackParamList } from '@/navigations/stack/MapStackNavigator';
 import { MarkerColor } from '@/types/domain';
 import { validateAddPost } from '@/utils';
@@ -28,7 +29,7 @@ function AddPostScreen({route, navigation}: AddPostScreenProps) {
   });
   const [markerColor, setMarkerColor] = useState<MarkerColor>('RED');
   const [score, setScore] = useState(5);
-  const [address, setAddress] = useState('');
+  const address = useGetAddress(location);
 
   const handleSubmit = () => {
     const body = {
@@ -55,7 +56,7 @@ function AddPostScreen({route, navigation}: AddPostScreenProps) {
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.contentContainer}>
         <View style={styles.inputContainer}>
-          <InputFiled value='' disabled icon={
+          <InputFiled value={address} disabled icon={
             <Opticons 
               name='location' 
               size={16} 
