@@ -2,6 +2,7 @@ import AddPostHeaderRight from '@/components/AddPostHeaderRight';
 import CustomButton from '@/components/CustomButton';
 import InputFiled from '@/components/InputFiled';
 import MarkerSelector from '@/components/MarkerSelector';
+import ScoreInput from '@/components/ScoreInput';
 import { colors, mapNavigations } from '@/constants';
 import useMutateCreatePost from '@/hooks/queries/useMutateCreatePost';
 import useForm from '@/hooks/useForm';
@@ -34,6 +35,10 @@ function AddPostScreen({route, navigation}: AddPostScreenProps) {
 
   const handleSelectMarker = (name: MarkerColor) => {
     setMarkerColor(name);
+  }
+
+  const handleChangeScore = (value: number) => {
+    setScore(value);
   }
 
   const handleSubmit = () => {
@@ -89,8 +94,13 @@ function AddPostScreen({route, navigation}: AddPostScreenProps) {
             {...addPost.getTextInputProps('description')}
           />
           <MarkerSelector 
+            score={score}
             markerColor={markerColor}
             onPressMarker={handleSelectMarker}
+          />
+          <ScoreInput 
+            score={score}
+            onChangeScore={handleChangeScore}
           />
         </View>
       </ScrollView>
