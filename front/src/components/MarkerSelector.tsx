@@ -22,9 +22,10 @@ function MarkerSelector({
       <Text style={styles.markerLabel}>마커 선택</Text>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         <View style={styles.markerInputScroll}>
-          {categoryList.map(color => {
+          {categoryList.map((color, index) => {
           return (
             <Pressable
+              key={index}
               onPress={() => onPressMarker(color)}
               style={[
                 styles.markerBox,

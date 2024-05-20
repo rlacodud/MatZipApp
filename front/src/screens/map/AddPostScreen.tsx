@@ -1,6 +1,7 @@
 import AddPostHeaderRight from '@/components/AddPostHeaderRight';
 import CustomButton from '@/components/CustomButton';
 import DatePickerOption from '@/components/DatePickerOption';
+import ImageInput from '@/components/ImageInput';
 import InputFiled from '@/components/InputFiled';
 import MarkerSelector from '@/components/MarkerSelector';
 import ScoreInput from '@/components/ScoreInput';
@@ -8,7 +9,9 @@ import { colors, mapNavigations } from '@/constants';
 import useMutateCreatePost from '@/hooks/queries/useMutateCreatePost';
 import useForm from '@/hooks/useForm';
 import useGetAddress from '@/hooks/useGetAddress';
+import useImagePicker from '@/hooks/useImagePicker';
 import useModal from '@/hooks/useModal';
+import usePermission from '@/hooks/usePermission';
 import { MapStackParamList } from '@/navigations/stack/MapStackNavigator';
 import { MarkerColor } from '@/types/domain';
 import { getDateWithSeparator, validateAddPost } from '@/utils';
@@ -37,6 +40,10 @@ function AddPostScreen({route, navigation}: AddPostScreenProps) {
   const [date, setDate] = useState(new Date());
   const [isPicked, setIsPicked] = useState(false);
   const dateOption = useModal();
+  const imagePicker = useImagePicker({
+    initialImages: [],
+  });
+  usePermission('PHOTO');
 
   const handleConfirmDate = () => {
     setIsPicked(true);
@@ -121,6 +128,7 @@ function AddPostScreen({route, navigation}: AddPostScreenProps) {
             score={score}
             onChangeScore={handleChangeScore}
           />
+          <ImageInput onChange={imagePicker.handleChange}/>
           <DatePickerOption 
             date={date} 
             isVisible={dateOption.isVisible}

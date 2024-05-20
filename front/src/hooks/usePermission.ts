@@ -35,9 +35,9 @@ function usePermission (type: PermissionType) {
           alerts[`${type}_PERMISSION`].DESCRIPTION,
           [
             {
-            text: '설정하기',
-            onPress: () => 
-              Linking.openSettings(),
+              text: '설정하기',
+              onPress: () => 
+                Linking.openSettings(),
             },
             {
               text: '취소',
@@ -64,7 +64,7 @@ function usePermission (type: PermissionType) {
           break;
       }
     })
-  })
+  }, [])
 }
 
 export default usePermission;
