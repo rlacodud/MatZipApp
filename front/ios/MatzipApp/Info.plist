@@ -42,9 +42,9 @@
 	<string>위치 확인을 위해 위치 접근 권한 동의가 필요합니다. 동의하면, 현재 위치와 장소를 등록하는 데 사용됩니다. 설정에서 이를 변경할 수 있습니다. 위치는 서버에 전송되지 않습니다.</string>
 	<key>NSPhotoLibraryAddUseageDescription</key>
 	<string>게시글 등록 시 사진 선택을 위해 라이브러리 접근 권한이 필요합니다.</string>
-	<key>NSPhotoLibraryUseageDescription</key>
+	<key>NSPhotoLibraryUsageDescription</key>
 	<string>게시글 등록 시 사진 선택을 위해 라이브러리 접근 권한이 필요합니다.</string>
-	<key>NSAppleMusicUseageDescription</key>
+	<key>NSAppleMusicUsageDescription</key>
 	<string>게시글 등록 시 사진 선택을 위해 라이브러리 접근 권한이 필요합니다.</string>
 	<key>UIAppFonts</key>
 	<array>
