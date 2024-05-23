@@ -28,7 +28,20 @@ const MapHomeScreen = () => {
   const {userLocation, isUserLocationError} = useUserLocation();
   const [selectLocation, setSelectLocation] = useState<LatLng | null>();
   const {data: markers = []} = useGetMarkers();
+
   usePermission('LOCATION');
+
+  const moveMapView = (coordinate: LatLng) => {
+    mapRef.current?.animateToRegion({
+      ...coordinate,
+      latitudeDelta: 0.0922,
+      longitudeDelta: 0.0421,
+    })
+  }
+
+  const handlePressMarker = (coordinate: LatLng) => {
+    moveMapView(coordinate);
+  }
 
   const handleLongPressMapView = ({nativeEvent}: LongPressEvent) => {
     setSelectLocation(nativeEvent.coordinate);
@@ -52,12 +65,7 @@ const MapHomeScreen = () => {
     if(isUserLocationError) {
       return;
     }
-    mapRef.current?.animateToRegion({
-      latitude: userLocation.latitude,
-      longitude: userLocation.longitude,
-      latitudeDelta: 0.0922,
-      longitudeDelta: 0.0421,
-    })
+    moveMapView(userLocation);
   }
 
   return (
@@ -82,7 +90,9 @@ const MapHomeScreen = () => {
             key={id}
             color={color}
             score={score}
-            coordinate={coordinate} />
+            coordinate={coordinate} 
+            onPress={() => handlePressMarker(coordinate)}
+          />
         ))}
         {selectLocation && (
           <Callout>
