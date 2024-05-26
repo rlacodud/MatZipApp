@@ -1,10 +1,10 @@
 import React, { useRef } from 'react';
 import {StyleSheet, TextInput, View} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import InputFiled from '@/components/InputFiled';
+import InputFiled from '@/components/common/InputFiled';
 import useForm from '@/hooks/useForm';
 import { validateSignup } from '@/utils';
-import CustomButton from '@/components/CustomButton';
+import CustomButton from '@/components/common/CustomButton';
 import useAuth from '@/hooks/queries/useAuth';
 
 interface SignupScreenProps {

@@ -4,7 +4,7 @@ import React from 'react';
 import Octicons from 'react-native-vector-icons/Octicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {Dimensions, Image, Modal, Platform, Pressable, SafeAreaView, StyleSheet, Text, View} from 'react-native';
-import CustomMarker from './CustomMarker';
+import CustomMarker from '../common/CustomMarker';
 import { getDateWithSeparator } from '@/utils';
 
 interface MarkerModalProps {
