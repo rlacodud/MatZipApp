@@ -27,7 +27,12 @@ function FeedDetailScreen({route, navigation}: FeedDetailScreenProps) {
   }
   return (
     <>
-      <ScrollView style={styles.container}>
+      <ScrollView 
+        style={insets.bottom 
+          ? [styles.container, {marginBottom: insets.bottom + 50}] 
+          : [styles.container, styles.scrollNoInsets]
+        }
+      >
         <SafeAreaView style={styles.headerContainer}>
           <View style={styles.header}>
             <Octicons 
@@ -124,6 +129,9 @@ function FeedDetailScreen({route, navigation}: FeedDetailScreenProps) {
 const styles = StyleSheet.create({
   container: {
     position: 'relative',
+  },
+  scrollNoInsets: {
+    marginBottom: 65,
   },
   headerContainer: {
     position: 'absolute',
