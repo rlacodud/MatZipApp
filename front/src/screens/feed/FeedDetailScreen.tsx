@@ -28,6 +28,7 @@ function FeedDetailScreen({route, navigation}: FeedDetailScreenProps) {
   return (
     <>
       <ScrollView 
+        scrollIndicatorInsets={{right: 1}}
         style={insets.bottom 
           ? [styles.container, {marginBottom: insets.bottom + 50}] 
           : [styles.container, styles.scrollNoInsets]
@@ -111,7 +112,10 @@ function FeedDetailScreen({route, navigation}: FeedDetailScreenProps) {
 
       <View style={[styles.bottomContainer, {paddingBottom: insets.bottom}]}>
         <View style={[styles.tabContainer, insets.bottom === 0 && styles.tabContainerNoInsets]}>
-          <Pressable>
+          <Pressable style={(({pressed}) => [
+            pressed && styles.bookmarkPressedContainer,
+            styles.bookmarkContainer
+          ])}>
             <Octicons name='star-fill' size={30} color={colors.GRAY_100}/>
           </Pressable>
           <CustomButton
@@ -234,6 +238,16 @@ const styles = StyleSheet.create({
   },
   tabContainerNoInsets: {
     marginBottom: 10,
+  },
+  bookmarkContainer: {
+    backgroundColor: colors.PINK_700,
+    height: '100%',
+    paddingHorizontal: 5,
+    justifyContent: 'center',
+    borderRadius: 3,
+  },
+  bookmarkPressedContainer: {
+    opacity: 0.5,
   }
 });
 
