@@ -8,7 +8,7 @@ import { useMutation } from "@tanstack/react-query";
 function useMutateCreatePost(mutationOptions?: UseMutationCustomOptions) {
   return useMutation({
     mutationFn: createPost,
-    onSuccess:(newPost) => {
+    onSuccess: newPost => {
       queryClient.invalidateQueries({
         queryKey: [queryKeys.POST, queryKeys.GET_POSTS],
       });
@@ -20,7 +20,7 @@ function useMutateCreatePost(mutationOptions?: UseMutationCustomOptions) {
             id: newPost.id,
             latitude: newPost.latitude,
             longitude: newPost.longitude,
-            colors: newPost.color,
+            color: newPost.color,
             score: newPost.score,
           }
           return existingMarkers 
