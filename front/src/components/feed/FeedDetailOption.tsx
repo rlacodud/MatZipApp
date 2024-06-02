@@ -6,7 +6,7 @@ import useDetailStore from '@/store/useDetailPostStore';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { FeedStackParamList } from '@/navigations/stack/FeedStackNavigator';
-import { alerts } from '@/constants';
+import { alerts, feedNavigations } from '@/constants';
 
 interface FeedDetailOptionProps {
   isVisible: boolean;
@@ -40,6 +40,20 @@ function FeedDetailOption({isVisible, hideOption}: FeedDetailOptionProps) {
         style: 'cancel',
       }
     ])
+  };
+
+  const handleEditPost = () => {
+    if(!detailPost) {
+      return;
+    }
+
+    navigation.navigate(feedNavigations.EDIT_POST, {
+      location: {
+        latitude: detailPost.latitude,
+        longitude: detailPost.longitude
+      }
+    })
+    hideOption();
   }
 
   return (
@@ -48,7 +62,7 @@ function FeedDetailOption({isVisible, hideOption}: FeedDetailOptionProps) {
         <CompoundOption.Container>
               <CompoundOption.Button isDanger onPress={handleDeletePost}>삭제하기</CompoundOption.Button>
               <CompoundOption.Divider/>
-              <CompoundOption.Button>수정하기</CompoundOption.Button>
+              <CompoundOption.Button onPress={handleEditPost}>수정하기</CompoundOption.Button>
           </CompoundOption.Container>
           <CompoundOption.Container>
             <CompoundOption.Button onPress={hideOption}>취소</CompoundOption.Button>
