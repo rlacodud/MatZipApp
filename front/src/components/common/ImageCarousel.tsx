@@ -1,20 +1,23 @@
 import { colors } from '@/constants';
 import { ImageUri } from '@/types/domain';
 import { useNavigation } from '@react-navigation/native';
-import React from 'react';
+import React, { useState } from 'react';
 import {Dimensions, FlatList, Image, Platform, Pressable, StyleSheet, View} from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Octicons from 'react-native-vector-icons/Octicons';
 
 interface ImageCarouselProps {
   images: ImageUri[];
+  pressedindex?: number;
 }
 
 const deviceWidth = Dimensions.get('window').width;
 
-function ImageCarousel({images}: ImageCarouselProps) {
+function ImageCarousel({images, pressedindex = 0}: ImageCarouselProps) {
   const insets = useSafeAreaInsets();
   const navigation = useNavigation();
+  const [initialIndex, setInitialIndex] = useState(pressedindex);
+
   return (
     <View style={styles.container}>
       <Pressable 
@@ -41,6 +44,10 @@ function ImageCarousel({images}: ImageCarouselProps) {
         horizontal
         pagingEnabled
         showsHorizontalScrollIndicator={false}
+        initialScrollIndex={initialIndex}
+        onScrollToIndexFailed={() => {
+          setInitialIndex(0);
+        }}
       />
     </View>
   )
