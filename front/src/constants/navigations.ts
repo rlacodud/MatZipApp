@@ -22,4 +22,9 @@ const feedNavigations = {
   IMAGE_ZOOM: 'ImageZoom',
 } as const;
 
-export {mainNavigations, authNavigations, mapNavigations, feedNavigations};
+const feedTabNavigations = {
+  FEED_HOME: 'FeedTabHome',
+  FEED_FAVORITE: 'FeedFavorite',
+} as const;
+
+export {mainNavigations, authNavigations, mapNavigations, feedNavigations, feedTabNavigations};
