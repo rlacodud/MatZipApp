@@ -8,7 +8,13 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import FeedHomeHeaderLeft from "@/components/feed/FeedHomeHeaderLeft";
 
 export type FeedTabParamList = {
-  [feedTabNavigations.FEED_HOME]: undefined;
+  [feedTabNavigations.FEED_HOME]: {
+    screen: typeof feedNavigations.FEED_DETAIL,
+    params: {
+      id: number,
+    },
+    initial: false,
+  };
   [feedTabNavigations.FEED_FAVORITE]: undefined;
 };
 
