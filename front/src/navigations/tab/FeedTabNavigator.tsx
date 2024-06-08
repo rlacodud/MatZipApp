@@ -1,9 +1,9 @@
-import { colors, feedTabNavigations } from "@/constants"
+import { colors, feedNavigations, feedTabNavigations } from "@/constants"
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import FeedStackNavigator from "../stack/FeedStackNavigator";
 import FeedFavoriteScreen from "@/screens/feed/FeedFavoriteScreen";
 import { StyleSheet } from "react-native";
-import { RouteProp } from "@react-navigation/native";
+import { RouteProp, TabRouter, getFocusedRouteNameFromRoute } from "@react-navigation/native";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FeedHomeHeaderLeft from "@/components/feed/FeedHomeHeaderLeft";
 
@@ -61,9 +61,24 @@ function FeedTabNavigator() {
       <Tab.Screen 
         name={feedTabNavigations.FEED_HOME}
         component={FeedStackNavigator}
-        options={{
+        options={({route}) => ({
           headerShown: false,
-        }}
+          tabBarStyle: (tabRoute => {
+            const routeName = getFocusedRouteNameFromRoute(tabRoute)
+            if (
+              routeName === feedNavigations.FEED_DETAIL || 
+              routeName === feedNavigations.EDIT_POST ||
+              routeName === feedNavigations.IMAGE_ZOOM
+            ) {
+              return {display: 'none'};
+            }
+            return {
+              backgroundColor: colors.WHITE,
+              borderTopColor: colors.GRAY_200,
+              borderTopWidth: StyleSheet.hairlineWidth
+            }
+          })(route),
+        })}
       />
       <Tab.Screen 
         name={feedTabNavigations.FEED_FAVORITE}
