@@ -26,4 +26,22 @@ function getDateLocaleFormat(dateString: Date | string) {
   return `${year}년 ${month}월 ${day}일`;
 }
 
-export {getDateWithSeparator, getDateLocaleFormat};
+function getMonthYearDetails(initialDate: Date) {
+  const month = initialDate.getMonth() + 1;
+  const year = initialDate.getFullYear;
+  const startDate = new Date(`${year}-${month}`);
+  const firstDOW = startDate.getDay();
+  const lastDateString = String(
+    new Date(
+      initialDate.getFullYear(), 
+      initialDate.getMonth() + 1, 
+      0
+    ).getDate()
+  );
+
+  const lastDate = Number(lastDateString);
+
+  return {month, year, startDate, firstDOW, lastDate};
+}
+
+export {getDateWithSeparator, getDateLocaleFormat, getMonthYearDetails};
