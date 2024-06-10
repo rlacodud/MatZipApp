@@ -44,4 +44,27 @@ function getMonthYearDetails(initialDate: Date) {
   return {month, year, startDate, firstDOW, lastDate};
 }
 
-export {getDateWithSeparator, getDateLocaleFormat, getMonthYearDetails};
+type MonthYear = {
+  month: number;
+  year: number;
+  startDate: Date;
+  firstDow: number;
+  lastDate: number;
+}
+
+function getNewMonthYear(prevData: MonthYear, increment: number) {
+  const newMonthYear = new Date(
+    prevData.startDate.setMonth(prevData.startDate.getMonth() + increment)
+  );
+
+  return getMonthYearDetails(newMonthYear);
+}
+
+export {
+  getDateWithSeparator, 
+  getDateLocaleFormat, 
+  getMonthYearDetails,
+  getNewMonthYear,
+};
+
+export type {MonthYear};
