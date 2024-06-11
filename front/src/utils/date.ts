@@ -48,7 +48,7 @@ type MonthYear = {
   month: number;
   year: number;
   startDate: Date;
-  firstDow: number;
+  firstDOW: number;
   lastDate: number;
 }
 
