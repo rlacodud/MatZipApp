@@ -10,10 +10,12 @@ import DateBox from './DateBox';
 
 interface CalendarProps {
   monthYear: MonthYear;
+  selectedDate: number;
+  onPressDate: (date: number) => void;
   onChangeMonth: (increment: number) => void;
 }
 
-function Calendar({monthYear, onChangeMonth}: CalendarProps) {
+function Calendar({monthYear, selectedDate, onPressDate, onChangeMonth}: CalendarProps) {
   const {month, year, lastDate, firstDOW} = monthYear;
   return (
     <>
@@ -43,7 +45,13 @@ function Calendar({monthYear, onChangeMonth}: CalendarProps) {
             id: i,
             date: i - firstDOW + 1
           }))}
-          renderItem={({item}) => (<DateBox date={item.date}/>)}
+          renderItem={({item}) => (
+            <DateBox
+              date={item.date}
+              selectedDate={selectedDate}
+              onPressDate={onPressDate}
+            />
+          )}
           keyExtractor={item => String(item.id)}
           numColumns={7}
         />
