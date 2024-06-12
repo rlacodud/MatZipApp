@@ -3,10 +3,10 @@ import React from 'react';
 import {Pressable, StyleSheet, Text, View} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import DayOfWeek from './DayOfWeek';
-import { MonthYear } from '@/utils';
+import DayOfWeek from '@/components/calendar/DayOfWeek';
+import { MonthYear, isSameAsCurrentDate } from '@/utils';
 import { FlatList } from 'react-native-gesture-handler';
-import DateBox from './DateBox';
+import DateBox from '@/components/calendar/DateBox';
 
 interface CalendarProps {
   monthYear: MonthYear;
@@ -48,6 +48,7 @@ function Calendar({monthYear, selectedDate, onPressDate, onChangeMonth}: Calenda
           renderItem={({item}) => (
             <DateBox
               date={item.date}
+              isToday={isSameAsCurrentDate(year, month, item.date)}
               selectedDate={selectedDate}
               onPressDate={onPressDate}
             />
