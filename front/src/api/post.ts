@@ -85,5 +85,6 @@ export type {
   RequestCreatePost, 
   ResponseSinglePost, 
   RequestUpdatePost,
+  CalendarPost,
   ResponseCalendarPost,
 };
