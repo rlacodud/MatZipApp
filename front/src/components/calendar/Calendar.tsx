@@ -7,15 +7,23 @@ import DayOfWeek from '@/components/calendar/DayOfWeek';
 import { MonthYear, isSameAsCurrentDate } from '@/utils';
 import { FlatList } from 'react-native-gesture-handler';
 import DateBox from '@/components/calendar/DateBox';
+import { ResponseCalendarPost } from '@/api';
 
-interface CalendarProps {
+interface CalendarProps<T> {
   monthYear: MonthYear;
   selectedDate: number;
+  schedules: Record<number, T>;
   onPressDate: (date: number) => void;
   onChangeMonth: (increment: number) => void;
 }
 
-function Calendar({monthYear, selectedDate, onPressDate, onChangeMonth}: CalendarProps) {
+function Calendar<T>({
+  monthYear, 
+  selectedDate, 
+  schedules,
+  onPressDate, 
+  onChangeMonth
+}: CalendarProps<T>) {
   const {month, year, lastDate, firstDOW} = monthYear;
   return (
     <>
@@ -49,6 +57,7 @@ function Calendar({monthYear, selectedDate, onPressDate, onChangeMonth}: Calenda
             <DateBox
               date={item.date}
               isToday={isSameAsCurrentDate(year, month, item.date)}
+              hasSchedule={Boolean(schedules[item.date])}
               selectedDate={selectedDate}
               onPressDate={onPressDate}
             />
