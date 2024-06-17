@@ -8,6 +8,8 @@ import { MonthYear, isSameAsCurrentDate } from '@/utils';
 import { FlatList } from 'react-native-gesture-handler';
 import DateBox from '@/components/calendar/DateBox';
 import { ResponseCalendarPost } from '@/api';
+import YearSelector from './YearSelector';
+import useModal from '@/hooks/useModal';
 
 interface CalendarProps<T> {
   monthYear: MonthYear;
@@ -25,6 +27,13 @@ function Calendar<T>({
   onChangeMonth
 }: CalendarProps<T>) {
   const {month, year, lastDate, firstDOW} = monthYear;
+  const yearSelector = useModal();
+
+  const handleChangeYear = (selectYear: number) => {
+    onChangeMonth(selectYear - year * 12)
+    yearSelector.hide();
+  }
+
   return (
     <>
       <View style={styles.headerContainer}>
@@ -34,7 +43,10 @@ function Calendar<T>({
         >
           <Ionicons name='arrow-back' size={25} color={colors.BLACK}/>
         </Pressable>
-        <Pressable style={styles.monthYearContainer}>
+        <Pressable 
+          style={styles.monthYearContainer}
+          onPress={yearSelector.show}
+        >
           <Text style={styles.titleText}>{year}년 {month}월</Text>
           <MaterialIcons name='keyboard-arrow-down' size={20} color={colors.GRAY_500} />
         </Pressable>
@@ -66,6 +78,12 @@ function Calendar<T>({
           numColumns={7}
         />
       </View>
+      <YearSelector 
+        isVisible={yearSelector.isVisible} 
+        currentYear={year}
+        onChangeYear={handleChangeYear}
+        hide={yearSelector.hide}
+      />
     </>
   )
 }
