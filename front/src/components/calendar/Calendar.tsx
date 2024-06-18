@@ -30,7 +30,7 @@ function Calendar<T>({
   const yearSelector = useModal();
 
   const handleChangeYear = (selectYear: number) => {
-    onChangeMonth(selectYear - year * 12)
+    onChangeMonth((selectYear - year) * 12)
     yearSelector.hide();
   }
 
