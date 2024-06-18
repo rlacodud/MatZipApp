@@ -1,5 +1,5 @@
 import { colors } from '@/constants';
-import React from 'react';
+import React, { useEffect } from 'react';
 import {Pressable, StyleSheet, Text, View} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -7,9 +7,10 @@ import DayOfWeek from '@/components/calendar/DayOfWeek';
 import { MonthYear, isSameAsCurrentDate } from '@/utils';
 import { FlatList } from 'react-native-gesture-handler';
 import DateBox from '@/components/calendar/DateBox';
-import { ResponseCalendarPost } from '@/api';
-import YearSelector from './YearSelector';
+import YearSelector from '@/components/calendar/YearSelector';
 import useModal from '@/hooks/useModal';
+import { useNavigation } from '@react-navigation/native';
+import CalendarHomeHeaderRight from '@/components/calendar/CalendarHomeHeaderRight';
 
 interface CalendarProps<T> {
   monthYear: MonthYear;
@@ -17,6 +18,7 @@ interface CalendarProps<T> {
   schedules: Record<number, T>;
   onPressDate: (date: number) => void;
   onChangeMonth: (increment: number) => void;
+  moveToToday: () => void;
 }
 
 function Calendar<T>({
@@ -24,15 +26,23 @@ function Calendar<T>({
   selectedDate, 
   schedules,
   onPressDate, 
-  onChangeMonth
+  onChangeMonth,
+  moveToToday,
 }: CalendarProps<T>) {
   const {month, year, lastDate, firstDOW} = monthYear;
+  const navigation = useNavigation();
   const yearSelector = useModal();
 
   const handleChangeYear = (selectYear: number) => {
     onChangeMonth((selectYear - year) * 12)
     yearSelector.hide();
-  }
+  };
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => CalendarHomeHeaderRight(moveToToday),
+    })
+  }, [moveToToday, navigation]);
 
   return (
     <>
