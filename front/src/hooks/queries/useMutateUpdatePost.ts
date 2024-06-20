@@ -24,11 +24,11 @@ function useMutateUpdatePost(mutationOptions?: UseMutationCustomOptions) {
           queryKeys.POST, 
           queryKeys.GET_CALENDAR_POSTS, 
           new Date(newPost.date).getFullYear(),
-          new Date(newPost.date).getMonth() + 1
-        ]
-      })
+          new Date(newPost.date).getMonth() + 1,
+        ],
+      });
     },
-    ...mutationOptions
+    ...mutationOptions,
   });
 }
 

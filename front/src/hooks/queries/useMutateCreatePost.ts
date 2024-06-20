@@ -20,7 +20,7 @@ function useMutateCreatePost(mutationOptions?: UseMutationCustomOptions) {
           new Date(newPost.date).getFullYear(),
           new Date(newPost.date).getMonth() + 1
         ]
-      })
+      });
 
       queryClient.setQueryData<Marker[]>(
         [queryKeys.MARKER, queryKeys.GET_MARKERS],
