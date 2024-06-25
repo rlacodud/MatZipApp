@@ -1,7 +1,13 @@
-import React from 'react';
+import useSearchLocation from '@/hooks/useSearchLocation';
+import useUserLocation from '@/hooks/useUserLocation';
+import React, { useState } from 'react';
 import {StyleSheet, View} from 'react-native';
 
 function SearchLocationScreen() {
+	const [keyword, setKeyword] = useState<string>('');
+	const {userLocation} = useUserLocation();
+	useSearchLocation(keyword, userLocation);
+	
 	return (
 		<View style={styles.container}></View>
 	)
