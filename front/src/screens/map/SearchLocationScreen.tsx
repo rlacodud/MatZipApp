@@ -7,9 +7,14 @@ function SearchLocationScreen() {
 	const [keyword, setKeyword] = useState<string>('');
 	const {userLocation} = useUserLocation();
 	useSearchLocation(keyword, userLocation);
-	
+
+	const handleChangeKeyword = (text: string) => {
+		setKeyword(text);
+	};
+
 	return (
-		<View style={styles.container}></View>
+		<View style={styles.container}>
+		</View>
 	)
 }
 
