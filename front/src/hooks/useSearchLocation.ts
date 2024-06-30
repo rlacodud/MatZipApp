@@ -42,7 +42,7 @@ function useSearchLocation(keyword: string, location: LatLng) {
     (async () => {
       try {
         const {data} = await axios.get<RegionResponse>(
-          `https://dapi.kakao.com/v2/local/search/category.json?query=${keyword}&y=${location.latitude}&x=${location.longitude}&page=${pageParam}`,
+          `https://dapi.kakao.com/v2/local/search/keyword.json?query=${keyword}&y=${location.latitude}&x=${location.longitude}&page=${pageParam}`,
           {
             headers: {
               Authorization: `KakaoAK ${Config.KAKAO_REST_API_KEY}`,
