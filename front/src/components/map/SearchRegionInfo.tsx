@@ -1,8 +1,11 @@
 import { colors } from '@/constants';
 import { RegionInfo } from '@/hooks/useSearchLocation';
+import useLocationStore from '@/store/useLocationStore';
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import {Dimensions, Pressable, StyleSheet, Text, View} from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+import { LatLng } from 'react-native-maps';
 import Octicons from 'react-native-vector-icons/Octicons';
 
 interface SearchRegionInfoProps {
@@ -10,6 +13,23 @@ interface SearchRegionInfoProps {
 }
 
 function SearchRegionInfo({regionInfo}: SearchRegionInfoProps) {
+  const navigation = useNavigation();
+  const {setMoveLocation} = useLocationStore();
+
+  const handlePressRegionInfo = (latitude: string, longitude: string) => {
+    const regionLocation = {
+      latitude: Number(latitude),
+      longitude: Number(longitude),
+    };
+
+    moveToMapScreen(regionLocation);
+  }
+
+  const moveToMapScreen = (regionLocation: LatLng) => {
+    navigation.goBack();
+    setMoveLocation(regionLocation);
+  }
+
   return (
     <View style={styles.container}>
       <ScrollView
@@ -20,6 +40,7 @@ function SearchRegionInfo({regionInfo}: SearchRegionInfoProps) {
         {regionInfo.map((info, index) => (
           <Pressable
             key={info.id} 
+            onPress={() => handlePressRegionInfo(info.y, info.x)}
             style={[
               styles.itemBorder,
               index === regionInfo.length - 1 && styles.noItemBorder
