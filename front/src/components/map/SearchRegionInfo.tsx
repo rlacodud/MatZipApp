@@ -14,7 +14,7 @@ interface SearchRegionInfoProps {
 
 function SearchRegionInfo({regionInfo}: SearchRegionInfoProps) {
   const navigation = useNavigation();
-  const {setMoveLocation} = useLocationStore();
+  const {setMoveLocation, setSelectLocation} = useLocationStore();
 
   const handlePressRegionInfo = (latitude: string, longitude: string) => {
     const regionLocation = {
@@ -28,6 +28,7 @@ function SearchRegionInfo({regionInfo}: SearchRegionInfoProps) {
   const moveToMapScreen = (regionLocation: LatLng) => {
     navigation.goBack();
     setMoveLocation(regionLocation);
+    setSelectLocation(regionLocation);
   }
 
   return (
@@ -55,7 +56,7 @@ function SearchRegionInfo({regionInfo}: SearchRegionInfoProps) {
                 </Text>
               </View>
               <View style={styles.categoryContainer}>
-                <Text style={styles.distanceText}>{info.distance}</Text>
+                <Text style={styles.distanceText}>{(Number(info.distance) / 1000).toFixed(2)}km</Text>
                 <Text style={styles.subInfoText}>{info.category_name}</Text>
               </View>
               <Text style={styles.subInfoText}>{info.road_address_name}</Text>
