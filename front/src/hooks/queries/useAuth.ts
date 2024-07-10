@@ -1,5 +1,5 @@
 import { MutationFunction, useMutation, useQuery } from "@tanstack/react-query";
-import { ResponseToken, getAccessToken, getProfile, kakaoLogin, logout, postLogin, postSignup } from "@/api/auth";
+import { ResponseToken, appleLogin, getAccessToken, getProfile, kakaoLogin, logout, postLogin, postSignup } from "@/api/auth";
 import { UseMutationCustomOptions, UseQueryCustomOptions } from "@/types/common";
 import { removeEncryptStorage, setEncryptStorage } from "@/utils";
 import { removeHeader, setHeader } from "@/utils/header";
@@ -35,6 +35,10 @@ function useEmailLogin(mutationOptions?: UseMutationCustomOptions) {
 
 function useKakaoLogin(mutationOptions?: UseMutationCustomOptions) {
   return useLogin(kakaoLogin, mutationOptions);
+}
+
+function useAppleLogin(mutationOptions?: UseMutationCustomOptions) {
+  return useLogin(appleLogin, mutationOptions);
 }
 
 function useGetRefreshToken() {
@@ -96,9 +100,10 @@ function useAuth() {
   const isLogin = getProfileQuery.isSuccess;
   const loginMutation = useEmailLogin();
   const kakaoLoginMutation = useKakaoLogin();
+  const appleLoginMutation = useAppleLogin();
   const logoutMutation = useLogout();
 
-  return {signupMutation, loginMutation, kakaoLoginMutation, logoutMutation, isLogin, getProfileQuery};
+  return {signupMutation, loginMutation, kakaoLoginMutation, appleLoginMutation, logoutMutation, isLogin, getProfileQuery};
 }
 
 export default useAuth;
