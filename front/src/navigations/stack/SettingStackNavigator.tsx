@@ -1,14 +1,8 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { feedNavigations, settingNavigations } from '@/constants/navigations';
-import FeedHomeScreen from '@/screens/feed/FeedHomeScreen';
-import FeedHomeHeaderLeft from '@/components/feed/FeedHomeHeaderLeft';
+import { settingNavigations } from '@/constants/navigations';
 import { colors } from '@/constants';
-import FeedDetailScreen from '@/screens/feed/FeedDetailScreen';
-import { LatLng } from 'react-native-maps';
-import EditPostScreen from '@/screens/feed/EditPostScreen';
-import ImageZoomScreen from '@/screens/feed/ImageZoomScreen';
 import SettingHomeScreen from '@/screens/setting/SettingHomeScreen';
 import EditProfileScreen from '@/screens/setting/EditProfileScreen';
 import SettingHeaderLeft from '@/components/setting/SettingHeaderLeft';
@@ -24,14 +18,14 @@ function SettingStackNavigator() {
   return (
     <Stack.Navigator screenOptions={{
       cardStyle: {
-          backgroundColor: 'white',
+        backgroundColor: colors.GRAY_100,
       },
       headerStyle: {
-          backgroundColor: 'white',
-          shadowColor: 'gray',
+        backgroundColor: 'white',
+        shadowColor: 'gray',
       },
       headerTitleStyle: {
-          fontSize: 15,
+        fontSize: 15,
       },
       headerTintColor: 'black',
     }}>
