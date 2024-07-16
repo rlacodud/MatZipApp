@@ -1,5 +1,5 @@
 import { MutationFunction, useMutation, useQuery } from "@tanstack/react-query";
-import { ResponseToken, appleLogin, getAccessToken, getProfile, kakaoLogin, logout, postLogin, postSignup } from "@/api/auth";
+import { ResponseToken, appleLogin, editProfile, getAccessToken, getProfile, kakaoLogin, logout, postLogin, postSignup } from "@/api/auth";
 import { UseMutationCustomOptions, UseQueryCustomOptions } from "@/types/common";
 import { removeEncryptStorage, setEncryptStorage } from "@/utils";
 import { removeHeader, setHeader } from "@/utils/header";
@@ -77,6 +77,19 @@ function useGetProfile(queryOptions?: UseQueryCustomOptions) {
   });
 }
 
+function useUpdateProfile(mutationOptions?: UseMutationCustomOptions) {
+  return useMutation({
+    mutationFn: editProfile,
+    onSuccess: (newProfile) => {
+      queryClient.setQueryData(
+        [queryKeys.AUTH, queryKeys.GET_PROFILE],
+        newProfile
+      );
+    },
+    ...mutationOptions,
+  })
+}
+
 function useLogout(mutationOptions?: UseMutationCustomOptions) {
   return useMutation({
     mutationFn: logout,
@@ -100,8 +113,9 @@ function useAuth() {
   const kakaoLoginMutation = useKakaoLogin();
   const appleLoginMutation = useAppleLogin();
   const logoutMutation = useLogout();
+  const profileMutation = useUpdateProfile();
 
-  return {signupMutation, loginMutation, kakaoLoginMutation, appleLoginMutation, logoutMutation, isLogin, getProfileQuery};
+  return {signupMutation, loginMutation, kakaoLoginMutation, appleLoginMutation, logoutMutation, isLogin, getProfileQuery, profileMutation};
 }
 
 export default useAuth;
