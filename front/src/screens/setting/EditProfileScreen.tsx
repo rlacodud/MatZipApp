@@ -1,8 +1,10 @@
 import InputFiled from '@/components/common/InputFiled';
+import EditProfileImageOption from '@/components/setting/EditProfileImageOption';
 import { colors } from '@/constants';
 import useAuth from '@/hooks/queries/useAuth';
 import useForm from '@/hooks/useForm';
 import useImagePicker from '@/hooks/useImagePicker';
+import useModal from '@/hooks/useModal';
 import { validateEditProfile } from '@/utils';
 import React from 'react';
 import {Image, Platform, Pressable, StyleSheet, View} from 'react-native';
@@ -15,6 +17,7 @@ interface EditProfileScreenProps {
 function EditProfileScreen({}: EditProfileScreenProps) {
   const {getProfileQuery} = useAuth();
   const {nickname, imageUri, kakaoImageUri} = getProfileQuery.data || {};
+  const imageOption = useModal();
 
   const imagePicker = useImagePicker({
     initialImages: imageUri ? [{uri: imageUri}] : [],
@@ -26,10 +29,14 @@ function EditProfileScreen({}: EditProfileScreenProps) {
     validate: validateEditProfile
   })
 
+  const handlePressImage = () => {
+    imageOption.show();
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.profileContainer}>
-        <Pressable style={[styles.imageContainer, styles.emptyImageContainer]}>
+        <Pressable style={[styles.imageContainer, styles.emptyImageContainer]} onPress={handlePressImage}>
           {imagePicker.imageUris.length === 0 && !kakaoImageUri &&
             <Ionicons name='camera-outline' size={30} color={colors.GRAY_500}/>
           }
@@ -68,6 +75,12 @@ function EditProfileScreen({}: EditProfileScreenProps) {
         error={editProfile.errors.nickname}
         touched={editProfile.errors.nickname}
         placeholder='닉네임을 입력해주세요.'
+      />
+
+      <EditProfileImageOption
+        isVisible={imageOption.isVisible}
+        hideOption={imageOption.hide}
+        onChangeImage={imagePicker.handleChange}
       />
     </View>
   )
