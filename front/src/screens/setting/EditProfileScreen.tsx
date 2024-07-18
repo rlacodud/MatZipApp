@@ -7,7 +7,7 @@ import useImagePicker from '@/hooks/useImagePicker';
 import useModal from '@/hooks/useModal';
 import { validateEditProfile } from '@/utils';
 import React from 'react';
-import {Image, Platform, Pressable, StyleSheet, View} from 'react-native';
+import {Image, Keyboard, Platform, Pressable, StyleSheet, View} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 interface EditProfileScreenProps {
@@ -21,7 +21,8 @@ function EditProfileScreen({}: EditProfileScreenProps) {
 
   const imagePicker = useImagePicker({
     initialImages: imageUri ? [{uri: imageUri}] : [],
-    mode: 'single'
+    mode: 'single',
+    onSettled: imageOption.hide,
   })
 
   const editProfile = useForm({
@@ -31,6 +32,7 @@ function EditProfileScreen({}: EditProfileScreenProps) {
 
   const handlePressImage = () => {
     imageOption.show();
+    Keyboard.dismiss();
   }
 
   return (
