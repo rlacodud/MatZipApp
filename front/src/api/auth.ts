@@ -58,7 +58,7 @@ const getProfile = async(): Promise<ResponseProfile> => {
 
 type RequestProfile = Omit<Profile, 'id' | 'email' | 'kakaoImageUri' | 'loginType'>;
 
-const editProfile = async (body: RequestProfile) => {
+const editProfile = async (body: RequestProfile) : Promise<ResponseProfile> => {
   const {data} = await axiosInstance.patch(`/auth/me`, body);
 
   return data;

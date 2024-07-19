@@ -1,21 +1,23 @@
 import InputFiled from '@/components/common/InputFiled';
+import EditProfileHeaderRight from '@/components/setting/EditProfileHeaderRight';
 import EditProfileImageOption from '@/components/setting/EditProfileImageOption';
-import { colors } from '@/constants';
+import { colors, errorMessages } from '@/constants';
 import useAuth from '@/hooks/queries/useAuth';
 import useForm from '@/hooks/useForm';
 import useImagePicker from '@/hooks/useImagePicker';
 import useModal from '@/hooks/useModal';
+import { SettingStackParamList } from '@/navigations/stack/SettingStackNavigator';
 import { validateEditProfile } from '@/utils';
-import React from 'react';
+import { StackScreenProps } from '@react-navigation/stack';
+import React, { useEffect } from 'react';
 import {Image, Keyboard, Platform, Pressable, StyleSheet, View} from 'react-native';
+import Toast from 'react-native-toast-message';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-interface EditProfileScreenProps {
+type EditProfileScreenProps = StackScreenProps<SettingStackParamList>;
 
-}
-
-function EditProfileScreen({}: EditProfileScreenProps) {
-  const {getProfileQuery} = useAuth();
+function EditProfileScreen({navigation}: EditProfileScreenProps) {
+  const {getProfileQuery, profileMutation} = useAuth();
   const {nickname, imageUri, kakaoImageUri} = getProfileQuery.data || {};
   const imageOption = useModal();
 
@@ -34,6 +36,32 @@ function EditProfileScreen({}: EditProfileScreenProps) {
     imageOption.show();
     Keyboard.dismiss();
   }
+
+  const handleSubmit = () => {
+    profileMutation.mutate({
+      ...editProfile.values,
+      imageUri: imagePicker.imageUris[0]?.uri,
+    }, {
+      onSuccess: () => 
+        Toast.show({
+          type: 'success',
+          text1: '프로필이 변경되었습니다.',
+          position: 'bottom'
+        }),
+      onError: error => 
+        Toast.show({
+          type: 'error',
+          text1: error.response?.data.message || errorMessages.UNEXPECT_ERROR,
+          position: 'bottom'
+        })
+    },
+  )}
+
+  useEffect(() => {
+    navigation.setOptions(({
+      headerRight: () => EditProfileHeaderRight(handleSubmit)
+    }))
+  }, [])
 
   return (
     <View style={styles.container}>
