@@ -1,12 +1,12 @@
 import { colors, mainNavigations, settingNavigations } from "@/constants";
 import useAuth from "@/hooks/queries/useAuth";
 import { DrawerContentComponentProps, DrawerContentScrollView, DrawerItemList } from "@react-navigation/drawer";
-import { Image, Pressable, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { Image, Platform, Pressable, SafeAreaView, StyleSheet, Text, View } from "react-native";
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 function CustomDrawerContent(props: DrawerContentComponentProps) {
   const {getProfileQuery} = useAuth();
-  const {email, ninkname, imageUri, kakaoImageUri} = getProfileQuery.data || {};
+  const {email, nickname, imageUri, kakaoImageUri} = getProfileQuery.data || {};
 
   const handlePressSetting = () => {
     props.navigation.navigate(mainNavigations.SETTING, {
@@ -33,19 +33,29 @@ function CustomDrawerContent(props: DrawerContentComponentProps) {
             {/* 유저 이미지는 없고 카카오톡 이미지는 존재하는 경우 */}
             {imageUri === null && !!kakaoImageUri && (
               <Image
-                source={{uri: kakaoImageUri}}
+                source={{
+                  uri: `${Platform.OS === 'ios'
+                  ? `http://localhost:3030`
+                  : `http"//10.0.2.2:3030`
+                  }/${kakaoImageUri}`
+                }}
                 style={styles.userImage}
               />
             )}
             {/* 유저 이미지가 존재하는 경우 */}
             {imageUri !== null && (
               <Image
-                source={{uri: imageUri}}
+                source={{
+                  uri: `${Platform.OS === 'ios'
+                  ? `http://localhost:3030`
+                  : `http"//10.0.2.2:3030`
+                  }/${imageUri}`
+                }}
                 style={styles.userImage}
               />
             )}
           </View>
-          <Text style={styles.nameText}>{ninkname ?? email}</Text>
+          <Text style={styles.nameText}>{nickname ?? email}</Text>
         </View>
         <DrawerItemList {...props}/>
       </DrawerContentScrollView>
