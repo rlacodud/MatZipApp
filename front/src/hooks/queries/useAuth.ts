@@ -1,5 +1,5 @@
 import { MutationFunction, useMutation, useQuery } from "@tanstack/react-query";
-import { ResponseToken, appleLogin, editProfile, getAccessToken, getProfile, kakaoLogin, logout, postLogin, postSignup } from "@/api/auth";
+import { ResponseProfile, ResponseToken, appleLogin, editProfile, getAccessToken, getProfile, kakaoLogin, logout, postLogin, postSignup } from "@/api/auth";
 import { UseMutationCustomOptions, UseQueryCustomOptions } from "@/types/common";
 import { removeEncryptStorage, setEncryptStorage } from "@/utils";
 import { removeHeader, setHeader } from "@/utils/header";
@@ -69,10 +69,10 @@ function useGetRefreshToken() {
   return {isSuccess, isError};
 }
 
-function useGetProfile(queryOptions?: UseQueryCustomOptions) {
+function useGetProfile(queryOptions?: UseQueryCustomOptions<ResponseProfile>) {
   return useQuery({
-    queryKey: [queryKeys.AUTH, queryKeys.GET_PROFILE],
     queryFn: getProfile,
+    queryKey: [queryKeys.AUTH, queryKeys.GET_PROFILE],
     ...queryOptions,
   });
 }
