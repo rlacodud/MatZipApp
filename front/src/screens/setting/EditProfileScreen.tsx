@@ -10,7 +10,7 @@ import { SettingStackParamList } from '@/navigations/stack/SettingStackNavigator
 import { validateEditProfile } from '@/utils';
 import { StackScreenProps } from '@react-navigation/stack';
 import React, { useEffect } from 'react';
-import {Image, Keyboard, Platform, Pressable, StyleSheet, View} from 'react-native';
+import {Image, Keyboard, Platform, Pressable, StyleSheet, Text, View} from 'react-native';
 import Toast from 'react-native-toast-message';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -19,8 +19,8 @@ type EditProfileScreenProps = StackScreenProps<SettingStackParamList>;
 function EditProfileScreen({navigation}: EditProfileScreenProps) {
   const {getProfileQuery, profileMutation} = useAuth();
   const {nickname, imageUri, kakaoImageUri} = getProfileQuery.data || {};
-  const imageOption = useModal();
 
+  const imageOption = useModal();
   const imagePicker = useImagePicker({
     initialImages: imageUri ? [{uri: imageUri}] : [],
     mode: 'single',
@@ -76,7 +76,7 @@ function EditProfileScreen({navigation}: EditProfileScreenProps) {
                 source={{
                   uri: `${Platform.OS === 'ios'
                   ? `http://localhost:3030`
-                  : `http"//10.0.2.2:3030`
+                  : `http://10.0.2.2:3030`
                   }/${kakaoImageUri}`
                 }}
                 style={styles.image}
@@ -90,7 +90,7 @@ function EditProfileScreen({navigation}: EditProfileScreenProps) {
                 source={{
                   uri: `${Platform.OS === 'ios'
                   ? `http://localhost:3030`
-                  : `http"//10.0.2.2:3030`
+                  : `http://10.0.2.2:3030`
                   }/${imagePicker.imageUris[0]?.uri}`
                 }}
                 style={styles.image}
@@ -103,7 +103,7 @@ function EditProfileScreen({navigation}: EditProfileScreenProps) {
       <InputFiled 
         {...editProfile.getTextInputProps('nickname')}
         error={editProfile.errors.nickname}
-        touched={editProfile.errors.nickname}
+        touched={editProfile.touched.nickname}
         placeholder='닉네임을 입력해주세요.'
       />
 
@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
     borderColor: colors.GRAY_200,
     borderRadius: 50,
     borderWidth: 1,
-  }
+  },
 });
 
 export default EditProfileScreen; 
