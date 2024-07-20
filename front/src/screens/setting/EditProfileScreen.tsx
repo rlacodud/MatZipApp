@@ -106,7 +106,10 @@ function EditProfileScreen({navigation}: EditProfileScreenProps) {
         touched={editProfile.touched.nickname}
         placeholder='닉네임을 입력해주세요.'
       />
-
+      <Pressable style={styles.deleteAccountContainer}>
+        <Ionicons name='remove-circle-sharp' size={18} color={colors.RED_500} />
+        <Text style={styles.deleteAccountText}>회원탈퇴</Text>
+      </Pressable>
       <EditProfileImageOption
         isVisible={imageOption.isVisible}
         hideOption={imageOption.hide}
@@ -143,6 +146,18 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     borderWidth: 1,
   },
+  deleteAccountContainer: {
+    position: 'absolute',
+    right: 20,
+    bottom: 22,
+    gap: 5,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  deleteAccountText: {
+    fontSize: 15,
+    color: colors.RED_500,
+  }
 });
 
 export default EditProfileScreen; 
