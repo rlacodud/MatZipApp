@@ -8,7 +8,7 @@ import {Keyboard, StyleSheet, View} from 'react-native';
 function SearchLocationScreen() {
   const [keyword, setKeyword] = useState<string>('');
   const {userLocation} = useUserLocation();
-  const {regionInfo} = useSearchLocation(keyword, userLocation);
+  const {regionInfo, pageParam, fetchNextPage, fetchPrevPage, hasNextPage} = useSearchLocation(keyword, userLocation);
 
   const handleChangeKeyword = (text: string) => {
     setKeyword(text);
