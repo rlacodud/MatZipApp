@@ -34,11 +34,26 @@ function DarkModeOption({isVisible, hideOption}: DarkModeOptionProps) {
     <CompoundOption isVisible={isVisible} hideOption={hideOption}>
       <CompoundOption.Background>
         <CompoundOption.Container>
-          <CompoundOption.Button onPress={handlePressLight}>라이트 모드</CompoundOption.Button>
+          <CompoundOption.Button 
+            onPress={handlePressLight}
+            isChecked={!isSystem && theme === 'light'}
+          >
+            라이트 모드
+          </CompoundOption.Button>
           <CompoundOption.Divider/>
-          <CompoundOption.Button onPress={handlePressDark}>다크 모드</CompoundOption.Button>
+          <CompoundOption.Button
+            onPress={handlePressDark}
+            isChecked={!isSystem && theme === 'dark'}
+          >
+            다크 모드
+          </CompoundOption.Button>
           <CompoundOption.Divider/>
-          <CompoundOption.Button onPress={handlePressSystem}>시스템 기본값 모드</CompoundOption.Button>
+          <CompoundOption.Button 
+            onPress={handlePressSystem}
+            isChecked={isSystem}
+          >
+            시스템 기본값 모드
+          </CompoundOption.Button>
         </CompoundOption.Container>
         <CompoundOption.Container>
           <CompoundOption.Button onPress={hideOption}>취소</CompoundOption.Button>
