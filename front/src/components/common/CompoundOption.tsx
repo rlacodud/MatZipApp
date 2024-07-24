@@ -1,6 +1,7 @@
 import { colors } from "@/constants";
 import { PropsWithChildren, ReactNode, createContext, useContext } from "react";
 import { GestureResponderEvent, Modal, ModalProps, Pressable, PressableProps, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 interface OptionMainProps extends ModalProps {
   children: ReactNode;
@@ -62,15 +63,18 @@ function Container({children}: PropsWithChildren) {
 interface ButtonProps extends PressableProps {
   children: ReactNode;
   isDanger?: boolean;
+  isChecked?: boolean;
 }
 
-function Button({children, isDanger = false, ...props}: ButtonProps) {
+function Button({children, isDanger = false, isChecked = false, ...props}: ButtonProps) {
   return (
     <Pressable style={({pressed}) => [
       pressed && styles.optionButtonPressed,
       styles.optionButton
     ]} {...props}>
       <Text style={[styles.optionText, isDanger && styles.dangerText]}>{children}</Text>
+
+      {isChecked && <Ionicons name="checkmark" size={20} color={colors.BLUE_500}/>}
     </Pressable>
   )
 }
