@@ -5,7 +5,6 @@ import { authNavigations } from '@/constants/navigations';
 import AuthHomeScreen from '@/screens/auth/AuthHomeScreen';
 import LoginScreen from '@/screens/auth/LoginScreen';
 import SignupScreen from '@/screens/auth/SignupScreen';
-import { kakaoLogin } from '@/api';
 import KakaoLoginScreen from '@/screens/auth/KakaoLoginScreen';
 
 export type AuthStackParamList = {
