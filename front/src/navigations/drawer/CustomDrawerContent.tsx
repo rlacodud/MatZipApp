@@ -1,5 +1,7 @@
 import { colors, mainNavigations, settingNavigations } from "@/constants";
 import useAuth from "@/hooks/queries/useAuth";
+import useThemeStore from "@/store/useThemeStore";
+import { ThemeMode } from "@/types/common";
 import { DrawerContentComponentProps, DrawerContentScrollView, DrawerItemList } from "@react-navigation/drawer";
 import { Image, Platform, Pressable, SafeAreaView, StyleSheet, Text, View } from "react-native";
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -7,6 +9,8 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 function CustomDrawerContent(props: DrawerContentComponentProps) {
   const {getProfileQuery} = useAuth();
   const {email, nickname, imageUri, kakaoImageUri} = getProfileQuery.data || {};
+  const {theme} = useThemeStore();
+  const styles = styling(theme);
 
   const handlePressSetting = () => {
     props.navigation.navigate(mainNavigations.SETTING, {
@@ -62,7 +66,7 @@ function CustomDrawerContent(props: DrawerContentComponentProps) {
         
       <View style={styles.bottomContainer}>
         <Pressable style={styles.bottomMenu} onPress={handlePressSetting}>
-          <MaterialIcons name="settings" color={colors.GRAY_700} size={18}/>
+          <MaterialIcons name="settings" color={colors[theme].GRAY_700} size={18}/>
           <Text style={styles.bottomMenuText}>설정</Text>
         </Pressable>
       </View>
@@ -70,12 +74,12 @@ function CustomDrawerContent(props: DrawerContentComponentProps) {
   )
 }
 
-const styles = StyleSheet.create({
+const styling = (theme: ThemeMode) => StyleSheet.create({
   container: {
     flex: 1,
   },
   contentContainer: {
-    backgroundColor: colors.WHITE,
+    backgroundColor: colors[theme].WHITE,
   },
   userInfoContainer: {
     alignItems: 'center',
@@ -84,7 +88,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 15,
   },
   nameText: {
-    color: colors.BLACK
+    color: colors[theme].BLACK
   },
   userImageContainer: {
     width: 70,
@@ -103,7 +107,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 15,
     borderTopWidth: 1,
-    borderTopColor: colors.GRAY_200,
+    borderTopColor: colors[theme].GRAY_200,
   },
   bottomMenu: {
     flexDirection: 'row',
@@ -113,7 +117,7 @@ const styles = StyleSheet.create({
   bottomMenuText: {
     fontWeight: '600',
     fontSize: 15,
-    color: colors.GRAY_700,
+    color: colors[theme].GRAY_700,
   }
 })
 

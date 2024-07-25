@@ -10,6 +10,7 @@ import { CustomDrawerContent } from './CustomDrawerContent';
 import FeedTabNavigator, { FeedTabParamList } from '../tab/FeedTabNavigator';
 import FeedHomeHeaderLeft from '@/components/feed/FeedHomeHeaderLeft';
 import SettingStackNavigator, { SettingStackParamList } from '../stack/SettingStackNavigator';
+import useThemeStore from '@/store/useThemeStore';
 
 export type MainDrawerParamList = {
   [mainNavigations.HOME]: NavigatorScreenParams<MapStackParamList>;
@@ -42,16 +43,20 @@ function DrawerIcons(route: RouteProp<MainDrawerParamList>, focused: Boolean) {
     }
   }
 
+  const {theme} = useThemeStore();
+
   return (
     <MaterialIcons
       name={iconName}
       size={18}
-      color={focused ? colors.BLACK : colors.GRAY_500}
+      color={focused ? colors[theme].BLACK : colors[theme].GRAY_500}
     />
   );
 }
 
 function MainDrawerNavigator() {
+  const {theme} = useThemeStore();
+
   return (
     <Drawer.Navigator
       drawerContent={CustomDrawerContent}
@@ -60,12 +65,12 @@ function MainDrawerNavigator() {
         drawerType: 'front',
         drawerStyle: {
           width: Dimensions.get('screen').width * 0.6,
-          backgroundColor: colors.WHITE,
+          backgroundColor: colors[theme].WHITE,
         },
-        drawerActiveTintColor: colors.BLACK,
-        drawerInactiveTintColor: colors.GRAY_500,
-        drawerActiveBackgroundColor: colors.PINK_200,
-        drawerInactiveBackgroundColor: colors.GRAY_100,
+        drawerActiveTintColor: colors[theme].BLACK,
+        drawerInactiveTintColor: colors[theme].GRAY_500,
+        drawerActiveBackgroundColor: colors[theme].PINK_200,
+        drawerInactiveBackgroundColor: colors[theme].GRAY_100,
         drawerLabelStyle: {
           fontWeight: "600",
         },
