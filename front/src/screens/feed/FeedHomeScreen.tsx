@@ -2,11 +2,7 @@ import FeedList from '@/components/feed/FeedList';
 import React from 'react';
 import {SafeAreaView, StyleSheet } from 'react-native';
 
-interface FeedHomeScreenProps {
-
-}
-
-const FeedHomeScreen = ({}: FeedHomeScreenProps) => {
+const FeedHomeScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <FeedList/>

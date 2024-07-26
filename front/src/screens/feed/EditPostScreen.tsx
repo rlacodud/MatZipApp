@@ -1,5 +1,4 @@
-import { feedNavigations, mapNavigations } from '@/constants';
-import { MapStackParamList } from '@/navigations/stack/MapStackNavigator';
+import { feedNavigations } from '@/constants';
 import { StackScreenProps } from '@react-navigation/stack';
 import React from 'react';
 import PostForm from '@/components/post/PostForm';

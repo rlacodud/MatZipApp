@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {Alert, Pressable, StyleSheet, View} from 'react-native';
 import MapView, {Callout, LatLng, LongPressEvent, PROVIDER_GOOGLE} from 'react-native-maps';
-import { alerts, colors, mapNavigations } from '@/constants';
+import { alerts, colors } from '@/constants';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { CompositeNavigationProp, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -18,9 +18,11 @@ import useGetMarkers from '@/hooks/queries/useGetMarkers';
 import MarkerModal from '@/components/map/MarkerModal';
 import useModal from '@/hooks/useModal';
 import useMoveMapView from '@/hooks/useMoveMapView';
-import { numbers } from "@/constants";
+import { mapNavigations, numbers } from "@/constants";
 import Toast from 'react-native-toast-message';
 import useLocationStore from '@/store/useLocationStore';
+import useThemeStore from '@/store/useThemeStore';
+import { ThemeMode } from '@/types/common';
 
 type Navigation = CompositeNavigationProp<
   StackNavigationProp<MapStackParamList>,
@@ -28,6 +30,8 @@ type Navigation = CompositeNavigationProp<
 >;
 
 const MapHomeScreen = () => {
+  const {theme} = useThemeStore();
+  const styles = styling(theme);
   const inset = useSafeAreaInsets();
   const navigation = useNavigation<Navigation>();
   const {userLocation, isUserLocationError} = useUserLocation();
@@ -118,26 +122,26 @@ const MapHomeScreen = () => {
       <Pressable style={[styles.drawerButton, {top: inset.top || 20}]}
         onPress={() => navigation.openDrawer()}
       >
-        <Ionicons name='menu' color={colors.WHITE} size={25}/>
+        <Ionicons name='menu' color={colors[theme].WHITE} size={25}/>
       </Pressable>
       <View style={styles.buttonList}>
         <Pressable
             style={styles.mapButton}
             onPress={handlePressAddPost}
           >
-          <MaterialIcons name='add' color={colors.WHITE} size={25}/>
+          <MaterialIcons name='add' color={colors[theme].WHITE} size={25}/>
         </Pressable>
         <Pressable
             style={styles.mapButton}
             onPress={handlePressSearch}
           >
-          <Ionicons name='search' color={colors.WHITE} size={25}/>
+          <Ionicons name='search' color={colors[theme].WHITE} size={25}/>
         </Pressable>
         <Pressable
           style={styles.mapButton}
           onPress={handlePressUserLocation}
         >
-          <MaterialIcons name='my-location' color={colors.WHITE} size={25}/>
+          <MaterialIcons name='my-location' color={colors[theme].WHITE} size={25}/>
         </Pressable>
       </View>
 
@@ -146,7 +150,7 @@ const MapHomeScreen = () => {
   )
 }
 
-const styles = StyleSheet.create({
+const styling = (theme: ThemeMode) => StyleSheet.create({
   container: {
     flex: 1,
   },
@@ -155,10 +159,10 @@ const styles = StyleSheet.create({
     left: 0,
     paddingVertical: 10,
     paddingHorizontal: 12,
-    backgroundColor: colors.PINK_700,
+    backgroundColor: colors[theme].PINK_700,
     borderTopRightRadius: 50,
     borderBottomRightRadius: 50,
-    shadowColor: colors.BLACK,
+    shadowColor: colors[theme].UNCHANGE_BLACK,
     shadowOffset: {width: 1, height: 1},
     shadowOpacity: 0.5,
     elevation: 4,
@@ -169,14 +173,14 @@ const styles = StyleSheet.create({
     right: 15,
   },
   mapButton: {
-    backgroundColor: colors.PINK_700,
+    backgroundColor: colors[theme].PINK_700,
     marginVertical: 5,
     width: 48,
     height: 48,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 30,
-    shadowColor: colors.BLACK,
+    shadowColor: colors[theme].UNCHANGE_BLACK,
     shadowOffset: {width: 1, height: 2},
     shadowOpacity: 0.5,
     elevation: 2,

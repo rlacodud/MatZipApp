@@ -4,6 +4,7 @@ import { colors, settingNavigations } from '@/constants';
 import useAuth from '@/hooks/queries/useAuth';
 import useModal from '@/hooks/useModal';
 import { SettingStackParamList } from '@/navigations/stack/SettingStackNavigator';
+import useThemeStore from '@/store/useThemeStore';
 import { StackScreenProps } from '@react-navigation/stack';
 import React from 'react';
 import {SafeAreaView, StyleSheet, View} from 'react-native';
@@ -28,6 +29,8 @@ function SettingHomeScreen({navigation}: SettingHomeScreenProps) {
     logoutMutation.mutate(null);
   };
 
+  const {theme} = useThemeStore();
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
@@ -38,11 +41,11 @@ function SettingHomeScreen({navigation}: SettingHomeScreenProps) {
         <View style={styles.space}/>
         <SettingItem 
           title='로그아웃' 
-          color={colors.RED_500}
+          color={colors[theme].RED_500}
           icon={
             <Octicons
               name='sign-out' 
-              color={colors.RED_500} 
+              color={colors[theme].RED_500} 
               size={16}
             />
           }

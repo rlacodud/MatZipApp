@@ -7,6 +7,8 @@ import useForm from '@/hooks/useForm';
 import useImagePicker from '@/hooks/useImagePicker';
 import useModal from '@/hooks/useModal';
 import { SettingStackParamList } from '@/navigations/stack/SettingStackNavigator';
+import useThemeStore from '@/store/useThemeStore';
+import { ThemeMode } from '@/types/common';
 import { validateEditProfile } from '@/utils';
 import { StackScreenProps } from '@react-navigation/stack';
 import React, { useEffect } from 'react';
@@ -63,12 +65,15 @@ function EditProfileScreen({navigation}: EditProfileScreenProps) {
     }))
   }, [])
 
+  const {theme} = useThemeStore();
+  const styles = styling(theme);
+
   return (
     <View style={styles.container}>
       <View style={styles.profileContainer}>
         <Pressable style={[styles.imageContainer, styles.emptyImageContainer]} onPress={handlePressImage}>
           {imagePicker.imageUris.length === 0 && !kakaoImageUri &&
-            <Ionicons name='camera-outline' size={30} color={colors.GRAY_500}/>
+            <Ionicons name='camera-outline' size={30} color={colors[theme].GRAY_500}/>
           }
           {imagePicker.imageUris.length === 0 && kakaoImageUri &&
             <>
@@ -110,7 +115,7 @@ function EditProfileScreen({navigation}: EditProfileScreenProps) {
         style={styles.deleteAccountContainer}
         onPress={() => navigation.navigate(settingNavigations.DELETE_ACCOUNT)}
       >
-        <Ionicons name='remove-circle-sharp' size={18} color={colors.RED_500} />
+        <Ionicons name='remove-circle-sharp' size={18} color={colors[theme].RED_500} />
         <Text style={styles.deleteAccountText}>회원탈퇴</Text>
       </Pressable>
       <EditProfileImageOption
@@ -122,7 +127,7 @@ function EditProfileScreen({navigation}: EditProfileScreenProps) {
   )
 }
 
-const styles = StyleSheet.create({
+const styling = (theme: ThemeMode) => StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
@@ -145,7 +150,7 @@ const styles = StyleSheet.create({
   emptyImageContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    borderColor: colors.GRAY_200,
+    borderColor: colors[theme].GRAY_200,
     borderRadius: 50,
     borderWidth: 1,
   },
@@ -159,7 +164,7 @@ const styles = StyleSheet.create({
   },
   deleteAccountText: {
     fontSize: 15,
-    color: colors.RED_500,
+    color: colors[theme].RED_500,
   }
 });
 
