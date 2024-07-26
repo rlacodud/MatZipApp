@@ -9,11 +9,7 @@ import useAuth from '@/hooks/queries/useAuth';
 import Toast from 'react-native-toast-message';
 import { errorMessages } from '@/constants';
 
-interface SignupScreenProps {
-
-}
-
-function SignupScreen({}: SignupScreenProps) {
+function SignupScreen() {
   const passwordRef = useRef<TextInput | null>(null);
   const passwordConfirmRef = useRef<TextInput | null>(null);
   const {signupMutation, loginMutation} = useAuth();

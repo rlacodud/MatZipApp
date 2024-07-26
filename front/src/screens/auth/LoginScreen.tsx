@@ -8,11 +8,7 @@ import useAuth from '@/hooks/queries/useAuth';
 import Toast from 'react-native-toast-message';
 import { errorMessages } from '@/constants';
 
-interface LoginScreenProps {
-
-}
-
-function LoginScreen({}: LoginScreenProps) {
+function LoginScreen() {
   const passwordRef = useRef<TextInput | null>(null);
   const {loginMutation} = useAuth();
   const login = useForm({
