@@ -9,6 +9,8 @@ import appleAuth, { AppleButton } from '@invertase/react-native-apple-authentica
 import useAuth from '@/hooks/queries/useAuth';
 import Toast from 'react-native-toast-message';
 import Config from 'react-native-config';
+import useThemeStore from '@/store/useThemeStore';
+import { ThemeMode } from '@/types/common';
 
 type AuthHomeScreenProps = StackScreenProps<AuthStackParamList, typeof authNavigations.AUTH_HOME>
 
@@ -38,6 +40,9 @@ function AuthHomeScreen({navigation}:AuthHomeScreenProps) {
       }
     }
   }
+
+  const {theme} = useThemeStore();
+  const styles = styling(theme);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -80,7 +85,7 @@ function AuthHomeScreen({navigation}:AuthHomeScreenProps) {
   );
 }
 
-const styles = StyleSheet.create({
+const styling = (theme: ThemeMode) => StyleSheet.create({
   container: {
     flex: 1,
     margin: 30,
@@ -109,7 +114,7 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline',
     fontWeight: '500',
     padding: 10,
-    color: colors.BLACK,
+    color: colors[theme].BLACK,
   },
   appleButton: {
     width: Dimensions.get('screen').width - 60,
