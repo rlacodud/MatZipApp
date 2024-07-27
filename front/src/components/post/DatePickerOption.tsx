@@ -1,4 +1,6 @@
 import { colors } from '@/constants';
+import useThemeStore from '@/store/useThemeStore';
+import { ThemeMode } from '@/types/common';
 import React from 'react';
 import {Modal, Pressable, SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import DatePicker from 'react-native-date-picker';
@@ -16,6 +18,9 @@ function DatePickerOption({
   onChangeDate,
   onConfirmDate,
 }: DatePickerOptionProps) {
+  const {theme} = useThemeStore();
+  const styles = styling(theme);
+
   return (
     <Modal visible={isVisible} transparent animationType='slide'>
       <SafeAreaView style={styles.optionBackground}>
@@ -40,7 +45,7 @@ function DatePickerOption({
   )
 }
 
-const styles = StyleSheet.create({
+const styling = (theme: ThemeMode) => StyleSheet.create({
   pickerContainer: {
     alignItems: 'center',
   },
@@ -53,7 +58,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     marginHorizontal: 10,
     marginBottom: 10,
-    backgroundColor: colors.GRAY_100,
+    backgroundColor: colors[theme].GRAY_100,
     overflow: 'hidden',
   },
   optionButton: {
@@ -64,7 +69,7 @@ const styles = StyleSheet.create({
     gap: 5,
   },
   optionText: {
-    color: colors.BLUE_500,
+    color: colors[theme].BLUE_500,
     fontSize: 17,
     fontWeight: '500',
   }

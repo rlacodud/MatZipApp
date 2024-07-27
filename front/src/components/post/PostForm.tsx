@@ -25,6 +25,7 @@ import { useNavigation } from '@react-navigation/native';
 import { FeedStackParamList } from '@/navigations/stack/FeedStackNavigator';
 import useDetailStore from '@/store/useDetailPostStore';
 import useMutateUpdatePost from '@/hooks/queries/useMutateUpdatePost';
+import useThemeStore from '@/store/useThemeStore';
 
 interface PostFormProps {
   isEdit?: boolean;
@@ -107,6 +108,8 @@ function PostForm({location, isEdit = false}: PostFormProps) {
     });
   });
 
+  const {theme} = useThemeStore();
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.contentContainer}>
@@ -115,7 +118,7 @@ function PostForm({location, isEdit = false}: PostFormProps) {
             <Opticons 
               name='location' 
               size={16} 
-              color={colors.GRAY_500} 
+              color={colors[theme].GRAY_500} 
             />
           }/>
           <CustomButton 
