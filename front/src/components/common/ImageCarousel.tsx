@@ -1,4 +1,6 @@
 import { colors } from '@/constants';
+import useThemeStore from '@/store/useThemeStore';
+import { ThemeMode } from '@/types/common';
 import { ImageUri } from '@/types/domain';
 import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
@@ -25,13 +27,16 @@ function ImageCarousel({images, pressedindex = 0}: ImageCarouselProps) {
     setPage(newPage);
   }
 
+  const {theme} = useThemeStore();
+  const styles = styling(theme);
+
   return (
     <View style={styles.container}>
       <Pressable 
         style={[styles.backButton, {marginTop: insets.top + 10}]}
         onPress={() => navigation.goBack()}
       >
-        <Octicons name='arrow-left' size={30} color={colors.WHITE}/>
+        <Octicons name='arrow-left' size={30} color={colors[theme].WHITE}/>
       </Pressable>
       <FlatList
         data={images}
@@ -71,17 +76,17 @@ function ImageCarousel({images, pressedindex = 0}: ImageCarouselProps) {
   )
 }
 
-const styles = StyleSheet.create({
+const styling = (theme: ThemeMode) => StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    backgroundColor: colors.WHITE,
+    backgroundColor: colors[theme].WHITE,
   },
   backButton: {
     position: 'absolute',
     left: 20,
     zIndex: 1,
-    backgroundColor: colors.PINK_700,
+    backgroundColor: colors[theme].PINK_700,
     width: 40,
     height: 40,
     borderRadius: 40,
@@ -99,13 +104,13 @@ const styles = StyleSheet.create({
   },
   pageDot: {
     margin: 4,
-    backgroundColor: colors.GRAY_200,
+    backgroundColor: colors[theme].GRAY_200,
     width: 8,
     height: 8,
     borderRadius: 4,
   },
   currentPageDot: {
-    backgroundColor: colors.PINK_700
+    backgroundColor: colors[theme].PINK_700
   }
 });
 

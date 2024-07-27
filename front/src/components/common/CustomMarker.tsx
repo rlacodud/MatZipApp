@@ -1,4 +1,6 @@
 import { colorHex, colors } from '@/constants';
+import useThemeStore from '@/store/useThemeStore';
+import { ThemeMode } from '@/types/common';
 import { MarkerColor } from '@/types/domain';
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
@@ -16,6 +18,9 @@ function CustomMarker({
   score = 5,
   ...props
 }: CustomMarkerProps) {
+  const {theme} = useThemeStore();
+  const styles = styling(theme);
+
   const markerView = (
     <View style={styles.container}>
       <View style={[styles.marker, {backgroundColor: colorHex[color]}]}>
@@ -35,7 +40,7 @@ function CustomMarker({
   ) : markerView;
 }
 
-const styles = StyleSheet.create({
+const styling = (theme: ThemeMode) => StyleSheet.create({
   container: {
     width: 32,
     height: 35,
@@ -48,11 +53,11 @@ const styles = StyleSheet.create({
     borderRadius: 27,
     borderBottomRightRadius: 1,
     borderWidth: 1,
-    borderColor: colors.BLACK,
+    borderColor: colors[theme].UNCHANGE_BLACK,
   },
   eye: {
     position: 'absolute',
-    backgroundColor: colors.BLACK,
+    backgroundColor: colors[theme].UNCHANGE_BLACK,
     width: 4,
     height: 4,
     borderRadius: 4,
@@ -79,7 +84,7 @@ const styles = StyleSheet.create({
     marginLeft: 5,
     marginTop: 5,
     borderRightColor: 'rgba(255, 255, 255 / 0.01)',
-    borderLeftColor: colors.BLACK,
+    borderLeftColor: colors[theme].UNCHANGE_BLACK,
   },
   soso: {
     transform: [{rotate: '45deg'}],
@@ -87,14 +92,14 @@ const styles = StyleSheet.create({
     marginTop: 13,
     width: 8,
     height: 8,
-    borderLeftColor: colors.BLACK,
+    borderLeftColor: colors[theme].UNCHANGE_BLACK,
     borderLeftWidth: 1,
   },
   bad: {
     marginLeft: 12,
     marginTop: 12,
     borderRightColor: 'rgba(255, 255, 255 / 0.01)',
-    borderLeftColor: colors.BLACK,
+    borderLeftColor: colors[theme].UNCHANGE_BLACK,
   }
 });
 

@@ -1,6 +1,8 @@
 import React, { ReactNode } from 'react';
 import {Pressable, StyleSheet, Text, PressableProps, Dimensions, View, StyleProp, ViewStyle, TextStyle} from 'react-native';
 import { colors } from '@/constants';
+import useThemeStore from '@/store/useThemeStore';
+import { ThemeMode } from '@/types/common';
 
 interface CustomButtonProps extends PressableProps {
   label: string;
@@ -24,6 +26,9 @@ function CustomButton({
   icon = null,
   ...props
 }: CustomButtonProps) {
+  const {theme} = useThemeStore();
+  const styles = styling(theme);
+
   return (
     <Pressable
       disabled={inValid}
@@ -43,7 +48,7 @@ function CustomButton({
   )
 }
 
-const styles = StyleSheet.create({
+const styling = (theme: ThemeMode) => StyleSheet.create({
   container: {
     borderRadius: 3,
     justifyContent: 'center',
@@ -53,17 +58,17 @@ const styles = StyleSheet.create({
     opacity: 0.5,
   },
   filled: {
-    backgroundColor: colors.PINK_700,
+    backgroundColor: colors[theme].PINK_700,
   },
   outlined: {
-    borderColor: colors.PINK_700,
+    borderColor: colors[theme].PINK_700,
     borderWidth: 1,
   },
   filledPressed: {
-    backgroundColor: colors.PINK_500,
+    backgroundColor: colors[theme].PINK_500,
   },
   outlinedPressed: {
-    borderColor: colors.PINK_700,
+    borderColor: colors[theme].PINK_700,
     borderWidth: 1,
     opacity: 0.5,
   },
@@ -88,10 +93,10 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   filledText: {
-    color: colors.WHITE,
+    color: colors[theme].WHITE,
   },
   outlinedText: {
-    color: colors.PINK_700,
+    color: colors[theme].PINK_700,
   },
 });
 
