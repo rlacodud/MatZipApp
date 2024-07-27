@@ -122,26 +122,26 @@ const MapHomeScreen = () => {
       <Pressable style={[styles.drawerButton, {top: inset.top || 20}]}
         onPress={() => navigation.openDrawer()}
       >
-        <Ionicons name='menu' color={colors[theme].WHITE} size={25}/>
+        <Ionicons name='menu' color={colors[theme].UNCHANGED_WHITE} size={25}/>
       </Pressable>
       <View style={styles.buttonList}>
         <Pressable
             style={styles.mapButton}
             onPress={handlePressAddPost}
           >
-          <MaterialIcons name='add' color={colors[theme].WHITE} size={25}/>
+          <MaterialIcons name='add' color={colors[theme].UNCHANGED_WHITE} size={25}/>
         </Pressable>
         <Pressable
             style={styles.mapButton}
             onPress={handlePressSearch}
           >
-          <Ionicons name='search' color={colors[theme].WHITE} size={25}/>
+          <Ionicons name='search' color={colors[theme].UNCHANGED_WHITE} size={25}/>
         </Pressable>
         <Pressable
           style={styles.mapButton}
           onPress={handlePressUserLocation}
         >
-          <MaterialIcons name='my-location' color={colors[theme].WHITE} size={25}/>
+          <MaterialIcons name='my-location' color={colors[theme].UNCHANGED_WHITE} size={25}/>
         </Pressable>
       </View>
 

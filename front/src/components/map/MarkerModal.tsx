@@ -11,6 +11,8 @@ import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { MainDrawerParamList } from '@/navigations/drawer/MainDrawerNavigator';
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import { FeedTabParamList } from '@/navigations/tab/FeedTabNavigator';
+import useThemeStore from '@/store/useThemeStore';
+import { ThemeMode } from '@/types/common';
 
 interface MarkerModalProps {
   markerId: number | null;
@@ -24,6 +26,9 @@ type Navigation = CompositeNavigationProp<
 >;
 
 function MarkerModal({markerId, isVisible, hide}: MarkerModalProps) {
+  const {theme} = useThemeStore();
+  const styles = styling(theme);
+  
   const naviagtion = useNavigation<Navigation>();
   const {data: post, isPending, isError} = useGetPost(markerId);
 
@@ -76,7 +81,7 @@ function MarkerModal({markerId, isVisible, hide}: MarkerModalProps) {
               )}
               <View style={styles.infoContainer}>
                 <View style={styles.addressContainer}>
-                  <Octicons name="location" size={10} color={colors.GRAY_500} />
+                  <Octicons name="location" size={10} color={colors[theme].GRAY_500} />
                   <Text numberOfLines={1} ellipsizeMode='tail' style={styles.addressText}>
                     {post?.address}
                   </Text>
@@ -88,7 +93,7 @@ function MarkerModal({markerId, isVisible, hide}: MarkerModalProps) {
             <MaterialIcons 
               name='arrow-forward-ios' 
               size={20} 
-              color={colors.BLACK}
+              color={colors[theme].BLACK}
             />
           </View>
         </Pressable>
@@ -97,20 +102,20 @@ function MarkerModal({markerId, isVisible, hide}: MarkerModalProps) {
   )
 }
 
-const styles = StyleSheet.create({
+const styling = (theme: ThemeMode) => StyleSheet.create({
   optionBackground: {
     flex: 1,
     justifyContent: 'flex-end',
   },
   cardContainer: {
-    backgroundColor: colors.WHITE,
+    backgroundColor: colors[theme].WHITE,
     margin: 10,
     borderRadius: 20,
-    shadowColor: colors.BLACK,
+    shadowColor: colors[theme].BLACK,
     shadowOffset: {width: 3, height: 3},
     shadowOpacity: 0.2,
     elevation: 1,
-    borderColor: colors.GRAY_500,
+    borderColor: colors[theme].GRAY_500,
     borderWidth: 1.5,
   },
   cardInner: {
@@ -138,7 +143,7 @@ const styles = StyleSheet.create({
   emptyImageContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    borderColor: colors.GRAY_200,
+    borderColor: colors[theme].GRAY_200,
     borderRadius: 35,
     borderWidth: 1,
   },
@@ -153,18 +158,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   addressText: {
-    color: colors.GRAY_500,
+    color: colors[theme].GRAY_500,
     fontSize: 10,
   },
   titleText: {
-    color: colors.BLACK,
+    color: colors[theme].BLACK,
     fontSize: 15,
     fontWeight: 'bold',
   },
   dateText: {
     fontSize: 12,
     fontWeight: 'bold',
-    color: colors.PINK_700,
+    color: colors[theme].PINK_700,
   }
 });
 
