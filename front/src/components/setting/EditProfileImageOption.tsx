@@ -1,5 +1,5 @@
 import React from 'react';
-import { CompoundOption } from '../common/CompoundOption';
+import { CompoundOption } from '@/components/common/CompoundOption';
 
 interface EditProfileImageOptionProps {
   isVisible: boolean;

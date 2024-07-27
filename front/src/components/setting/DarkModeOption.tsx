@@ -1,6 +1,6 @@
 import React from 'react';
-import {StyleSheet, View, useColorScheme} from 'react-native';
-import { CompoundOption } from '../common/CompoundOption';
+import {useColorScheme} from 'react-native';
+import { CompoundOption } from '@/components/common/CompoundOption';
 import useThemeStorage from '@/hooks/useThemeStorage';
 
 interface DarkModeOptionProps {
@@ -10,7 +10,7 @@ interface DarkModeOptionProps {
 
 function DarkModeOption({isVisible, hideOption}: DarkModeOptionProps) {
   const systemDefault = useColorScheme();
-  const {theme, isSystem, setMode, setSystem} =useThemeStorage();
+  const {theme, isSystem, setMode, setSystem} = useThemeStorage();
 
   const handlePressLight = () => {
     setMode('light');
@@ -62,7 +62,5 @@ function DarkModeOption({isVisible, hideOption}: DarkModeOptionProps) {
     </CompoundOption>
   )
 }
-
-const styles = StyleSheet.create({});
 
 export default DarkModeOption;

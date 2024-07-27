@@ -1,5 +1,5 @@
 import React from 'react';
-import HeaderButton from '../common/HeaderButton';
+import HeaderButton from '@/components/common/HeaderButton';
 
 function EditProfileHeaderRight(onSubmit: () => void) {
   return (
