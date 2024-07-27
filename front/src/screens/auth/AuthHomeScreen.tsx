@@ -114,7 +114,7 @@ const styling = (theme: ThemeMode) => StyleSheet.create({
     textDecorationLine: 'underline',
     fontWeight: '500',
     padding: 10,
-    color: colors[theme].BLACK,
+    color: colors[theme].UNCHANGE_BLACK,
   },
   appleButton: {
     width: Dimensions.get('screen').width - 60,
