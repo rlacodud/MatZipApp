@@ -40,14 +40,14 @@ function Calendar<T>({
     yearSelector.hide();
   };
 
+  const {theme} = useThemeStore();
+  const styles = styling(theme);
+
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => CalendarHomeHeaderRight(moveToToday),
     })
   }, [moveToToday, navigation]);
-
-  const {theme} = useThemeStore();
-  const styles = styling(theme);
 
   return (
     <>

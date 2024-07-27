@@ -21,6 +21,9 @@ function YearSelector({
 }: YearSelectorProps) {
   const [scrollY, setScrollY] = useState(0);
 
+  const {theme} = useThemeStore();
+  const styles = styling(theme);
+  
   useEffect(() => {
     const yearIndex = currentYear - numbers.MIN_CALENDAR_YEAR
     const currentRow = Math.floor(
@@ -31,9 +34,6 @@ function YearSelector({
 
     setScrollY(scrollToY);
   }, [isVisible, currentYear]);
-
-  const {theme} = useThemeStore();
-  const styles = styling(theme);
 
   return (
     <>

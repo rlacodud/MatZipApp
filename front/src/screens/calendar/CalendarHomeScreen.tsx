@@ -14,6 +14,9 @@ function CalendarHomeScreen() {
   const [selectedDate, setSelectedDate] = useState(0);
   const {data: posts, isPending, isError} = useGetCalendarPosts(monthYear.year, monthYear.month);
 
+  const {theme} = useThemeStore();
+  const styles = styling(theme);
+
   const moveToToday = () => {
     setSelectedDate(new Date().getDate());
     setMonthYear(getMonthYearDetails(new Date()));
@@ -34,9 +37,6 @@ function CalendarHomeScreen() {
   const handleUpdateMonth = (increment: number) => {
     setMonthYear(prev => getNewMonthYear(prev, increment));
   };
-
-  const {theme} = useThemeStore();
-  const styles = styling(theme);
 
   return (
     <SafeAreaView style={styles.container}>

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Alert, StyleSheet} from 'react-native';
+import {Alert} from 'react-native';
 import { CompoundOption } from '../common/CompoundOption';
 import useMutateDeletePost from '@/hooks/queries/useMutateDeletePost';
 import useDetailStore from '@/store/useDetailPostStore';
@@ -71,7 +71,5 @@ function FeedDetailOption({isVisible, hideOption}: FeedDetailOptionProps) {
     </CompoundOption>
   )
 }
-
-const styles = StyleSheet.create({});
 
 export default FeedDetailOption;

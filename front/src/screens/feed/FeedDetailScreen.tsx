@@ -39,6 +39,9 @@ function FeedDetailScreen({route, navigation}: FeedDetailScreenProps) {
   const {setDetailPost} = useDetailStore();
   const favoriteMutation = useMutateFavoritePost();
 
+  const {theme} = useThemeStore();
+  const styles = styling(theme);
+
   useEffect(() => {
     post && setDetailPost(post);
   }, [post]);
@@ -65,9 +68,6 @@ function FeedDetailScreen({route, navigation}: FeedDetailScreenProps) {
       initial: false
     })
   }
-
-  const {theme} = useThemeStore();
-  const styles = styling(theme);
 
   return (
     <>

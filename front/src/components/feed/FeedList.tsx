@@ -2,6 +2,9 @@ import usegetInfinitePosts from '@/hooks/queries/useGetInfinitePosts';
 import React, { useState } from 'react';
 import {FlatList, StyleSheet} from 'react-native';
 import FeedItem from './FeedItem';
+import useThemeStore from '@/store/useThemeStore';
+import { ThemeMode } from '@/types/common';
+import { colors } from '@/constants';
 
 function FeedList() {
   const {
@@ -13,6 +16,8 @@ function FeedList() {
   } = usegetInfinitePosts();
 
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const {theme} = useThemeStore();
+  const styles = styling(theme);
 
   const handleRefresh = async () => {
     setIsRefreshing(true);
@@ -43,9 +48,10 @@ function FeedList() {
   )
 }
 
-const styles = StyleSheet.create({
+const styling = (theme: ThemeMode) => StyleSheet.create({
   contentContainer: {
     padding: 15,
+    backgroundColor: colors[theme].WHITE
   }
 });
 
