@@ -1,6 +1,8 @@
 import { ResponsePost } from '@/api';
 import { colors, feedNavigations } from '@/constants';
 import { FeedStackParamList } from '@/navigations/stack/FeedStackNavigator';
+import useThemeStore from '@/store/useThemeStore';
+import { ThemeMode } from '@/types/common';
 import { getDateWithSeparator } from '@/utils';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -19,6 +21,9 @@ function FeedItem({post}: FeedItemProps) {
   const handlePressFeed = () => {
     navigation.navigate(feedNavigations.FEED_DETAIL, {id: post.id});
   }
+
+  const {theme} = useThemeStore();
+  const styles = styling(theme);
 
   return (
     <Pressable style={styles.container} onPress={handlePressFeed}>
@@ -54,7 +59,7 @@ function FeedItem({post}: FeedItemProps) {
   )
 }
 
-const styles = StyleSheet.create({
+const styling = (theme: ThemeMode) => StyleSheet.create({
   container: {
     flex: 1,
     margin: 5,
@@ -72,7 +77,7 @@ const styles = StyleSheet.create({
   emptyImageContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    borderColor: colors.GRAY_500,
+    borderColor: colors[theme].GRAY_500,
     borderRadius: 5,
     borderWidth: 1,
   },
@@ -81,17 +86,17 @@ const styles = StyleSheet.create({
     gap: 2,
   },
   dateText: {
-    color: colors.PINK_700,
+    color: colors[theme].PINK_700,
     fontWeight: '600',
     fontSize: 12,
   },
   titleText: {
-    color: colors.BLACK,
+    color: colors[theme].BLACK,
     fontWeight: '500',
     fontSize: 13,
   },
   descriptionText: {
-    color: colors.GRAY_500,
+    color: colors[theme].GRAY_500,
     fontSize: 13,
   }
 });
