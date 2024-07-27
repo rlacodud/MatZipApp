@@ -1,7 +1,9 @@
 import { CalendarPost } from '@/api';
-import { colors, feedNavigations, feedTabNavigations, mainNavigations, mapNavigations } from '@/constants';
+import { colors, feedNavigations, feedTabNavigations, mainNavigations } from '@/constants';
 import { MainDrawerParamList } from '@/navigations/drawer/MainDrawerNavigator';
 import { FeedTabParamList } from '@/navigations/tab/FeedTabNavigator';
+import useThemeStore from '@/store/useThemeStore';
+import { ThemeMode } from '@/types/common';
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { CompositeNavigationProp, useNavigation } from '@react-navigation/native';
@@ -32,6 +34,9 @@ function EventList({posts}: EventListProps) {
       }
     })
   }
+
+  const {theme} = useThemeStore();
+  const styles = styling(theme);
 
   return (
     <ScrollView 
@@ -66,9 +71,9 @@ function EventList({posts}: EventListProps) {
   )
 }
 
-const styles = StyleSheet.create({
+const styling = (theme: ThemeMode) => StyleSheet.create({
   container: {
-    backgroundColor: colors.WHITE,
+    backgroundColor: colors[theme].WHITE,
     padding: 20,
   },
   innerContainer: {
@@ -78,7 +83,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   itemHeader: {
-    backgroundColor: colors.PINK_700,
+    backgroundColor: colors[theme].PINK_700,
     width: 6,
     height: 50,
     marginRight: 8,
@@ -88,11 +93,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
   },
   addressText: {
-    color: colors.GRAY_500,
+    color: colors[theme].GRAY_500,
     fontSize: 13,
   },
   titleText: {
-    color: colors.BLACK,
+    color: colors[theme].BLACK,
     fontSize: 16,
     fontWeight: '600',
   }
