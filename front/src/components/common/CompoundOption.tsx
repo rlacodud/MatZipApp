@@ -1,7 +1,7 @@
 import { colors } from "@/constants";
 import useThemeStore from "@/store/useThemeStore";
 import { ThemeMode } from "@/types/common";
-import { PropsWithChildren, ReactNode, createContext, useContext } from "react";
+import { Children, PropsWithChildren, ReactNode, createContext, useContext } from "react";
 import { GestureResponderEvent, Modal, ModalProps, Pressable, PressableProps, SafeAreaView, StyleSheet, Text, View } from "react-native";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -107,6 +107,28 @@ function Divider() {
   const styles = styling(theme);
 
   return <View style={styles.border}/>
+}
+
+interface CheckBoxProps extends PressableProps {
+  children: ReactNode;
+  icon?: ReactNode;
+  isChecked?: boolean;
+}
+
+function CheckBox({children, icon, isChecked = false, ...props}: CheckBoxProps) {
+  const {theme} = useThemeStore();
+  const styles = styling(theme);
+
+  return (
+    <Pressable
+      style={({pressed}) => [
+        pressed && styles.optionButtonPressed
+      ]}
+      {...props}
+    >
+
+    </Pressable>
+  )
 }
 
 export const CompoundOption = Object.assign(OptionMain, {
