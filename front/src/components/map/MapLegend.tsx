@@ -27,7 +27,7 @@ function MapLegend() {
               {categories?.[color] !== '' && (
                 <View style={styles.column}>
                   <View style={[styles.legendColor, {backgroundColor: colorHex[color]}]}>
-                    <Text>{categories?.[color]}</Text>
+                    <Text style={styles.legendText}>{categories?.[color]}</Text>
                   </View>
                 </View>
               )}
@@ -54,10 +54,15 @@ const styling = (theme: ThemeMode) => StyleSheet.create({
     gap: 5,
   },
   legendColor: {
+    width: 10,
+    height: 10,
+    borderRadius: 10,
+  },
+  legendText: {
     color: colors[theme].UNCHANGED_WHITE,
     fontWeight: '500',
     fontSize: 13,
-  }
+  },
 });
 
 export default MapLegend;
