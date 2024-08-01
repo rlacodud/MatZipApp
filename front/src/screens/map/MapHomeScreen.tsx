@@ -25,6 +25,7 @@ import useThemeStore from '@/store/useThemeStore';
 import { ThemeMode } from '@/types/common';
 import useLegendStorage from '@/hooks/useLegendStorage';
 import MapLegend from '@/components/map/MapLegend';
+import MarkerFilterOption from '@/components/map/MarkerFilterOption';
 
 type Navigation = CompositeNavigationProp<
   StackNavigationProp<MapStackParamList>,
@@ -40,6 +41,7 @@ const MapHomeScreen = () => {
   const {selectLocation, setSelectLocation} = useLocationStore();
   const [markerId, setMarkerId] = useState<number | null>(null);
   const markerModal = useModal();
+  const filterOption = useModal();
   const {data: markers = []} = useGetMarkers();
   const {mapRef, moveMapView, handleChangeDelta} = useMoveMapView();
   const legend = useLegendStorage();
@@ -149,7 +151,10 @@ const MapHomeScreen = () => {
       </View>
 
       <MarkerModal markerId={markerId} isVisible={markerModal.isVisible} hide={markerModal.hide}/>
-
+      <MarkerFilterOption
+        isVisible={filterOption.isVisible}
+        hideOption={filterOption.hide}
+      />
       {legend.isVisible && <MapLegend/>}
     </>
   )
