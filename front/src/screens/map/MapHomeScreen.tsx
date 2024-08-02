@@ -144,6 +144,12 @@ const MapHomeScreen = () => {
         </Pressable>
         <Pressable
           style={styles.mapButton}
+          onPress={filterOption.show}
+        >
+          <Ionicons name='options-outline' color={colors[theme].WHITE} size={25}/>
+        </Pressable>
+        <Pressable
+          style={styles.mapButton}
           onPress={handlePressUserLocation}
         >
           <MaterialIcons name='my-location' color={colors[theme].UNCHANGED_WHITE} size={25}/>
