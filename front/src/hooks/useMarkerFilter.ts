@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { Marker } from "@/types/domain";
+import { getEncryptStorage, setEncryptStorage } from "@/utils";
+import { useEffect, useState } from "react";
 
 const initialFilters = {
   RED: true,
@@ -14,11 +16,31 @@ const initialFilters = {
 }
 
 function useMarkerFilter() {
-  const [filterItems, setFilterItems] = useState(initialFilters);
+  const [filterItems, setFilterItems] = useState<Record<string, boolean>>(initialFilters);
 
-  const transfromFilterMarker = () => {
-    
+  const set = async (items: Record<string, boolean>) => {
+    await setEncryptStorage('MarkerFilter', items);
+    setFilterItems(items);
   }
-}
+
+  const transfromFilterMarker = (markers: Marker[]) => {
+    return markers.filter(marker => {
+      return (
+        filterItems[marker.color] &&
+        filterItems[String(marker.score)]
+      );
+    });
+  };
+
+  useEffect(() => {
+    (async () => {
+      const storeData = (await getEncryptStorage('MarkerFilter')) ?? initialFilters
+      setFilterItems(storeData);
+    })()
+  }, [filterItems]);
+
+  return {set, filterItems, transfromFilterMarker};
+};
+
 
 export default useMarkerFilter;
