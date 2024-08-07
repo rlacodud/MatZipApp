@@ -26,6 +26,7 @@ import { ThemeMode } from '@/types/common';
 import useLegendStorage from '@/hooks/useLegendStorage';
 import MapLegend from '@/components/map/MapLegend';
 import MarkerFilterOption from '@/components/map/MarkerFilterOption';
+import useMarkerFilter from '@/hooks/useMarkerFilter';
 
 type Navigation = CompositeNavigationProp<
   StackNavigationProp<MapStackParamList>,
@@ -42,7 +43,10 @@ const MapHomeScreen = () => {
   const [markerId, setMarkerId] = useState<number | null>(null);
   const markerModal = useModal();
   const filterOption = useModal();
-  const {data: markers = []} = useGetMarkers();
+  const markerFilter = useMarkerFilter();
+  const {data: markers = []} = useGetMarkers({
+    select: markerFilter.transfromFilterMarker
+  });
   const {mapRef, moveMapView, handleChangeDelta} = useMoveMapView();
   const legend = useLegendStorage();
 
