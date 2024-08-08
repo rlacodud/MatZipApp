@@ -1,7 +1,7 @@
 import { ResponsePost, getPosts } from "@/api";
 import { queryKeys } from "@/constants";
 import { ResponseError } from "@/types/common";
-import { InfiniteData, QueryKey, UseInfiniteQueryOptions, useInfiniteQuery } from "@tanstack/react-query";
+import { InfiniteData, QueryKey, UseInfiniteQueryOptions, useSuspenseInfiniteQuery } from "@tanstack/react-query";
 
 function usegetInfinitePosts(
   queryOptions?: UseInfiniteQueryOptions<
@@ -13,7 +13,7 @@ function usegetInfinitePosts(
     number
   >
 ) {
-  return useInfiniteQuery({
+  return useSuspenseInfiniteQuery({
     queryFn: ({pageParam}) => getPosts(pageParam),
     queryKey: [queryKeys.POST, queryKeys.GET_POSTS],
     initialPageParam: 1,
@@ -25,4 +25,4 @@ function usegetInfinitePosts(
   })
 }
 
-export default usegetInfinitePosts;
+export default useSuspenseInfiniteQuery;
