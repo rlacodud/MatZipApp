@@ -11,6 +11,7 @@ import { Category, Profile } from "@/types/domain";
 function useSignup(mutationOptions?: UseMutationCustomOptions) {
   return useMutation({
     mutationFn: postSignup,
+    throwOnError: error => Number(error.response?.status) >= 500,
     ...mutationOptions,
   });
 }
@@ -26,6 +27,7 @@ function useLogin<T>(loginAPI: MutationFunction<ResponseToken, T>, mutationOptio
       queryClient.refetchQueries({queryKey: [queryKeys.AUTH, queryKeys.GET_ACCESS_TOKEN]});
       queryClient.invalidateQueries({queryKey: [queryKeys.AUTH, queryKeys.GET_PROFILE]});
     },
+    throwOnError: error => Number(error.response?.status) >= 500,
     ...mutationOptions,
   });
 }
