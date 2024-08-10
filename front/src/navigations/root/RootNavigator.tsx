@@ -3,19 +3,16 @@ import {StyleSheet} from 'react-native';
 import AuthStackNavigator from '@/navigations/stack/AuthStackNavigator';
 import MainDrawerNavigator from '@/navigations/drawer/MainDrawerNavigator';
 import useAuth from '@/hooks/queries/useAuth';
+import RetryErrorBoundary from '@/components/common/RetryErrorBoundary';
 
-interface RootNavigatorProps {
-
-}
-
-function RootNavigator({}: RootNavigatorProps) {
+function RootNavigator() {
   const {isLogin} = useAuth();
 
   return (
-    <>{ isLogin ? <MainDrawerNavigator /> : <AuthStackNavigator/> }</>
+    <RetryErrorBoundary>
+      { isLogin ? <MainDrawerNavigator /> : <AuthStackNavigator/> }
+    </RetryErrorBoundary>
   )
 }
-
-const styles = StyleSheet.create({});
 
 export default RootNavigator;

@@ -1,4 +1,5 @@
 import Loader from '@/components/common/Loader';
+import RetryErrorBoundary from '@/components/common/RetryErrorBoundary';
 import FeedFavoriteList from '@/components/feed/FeedFavoriteList';
 import { colors } from '@/constants';
 import useThemeStore from '@/store/useThemeStore';
@@ -12,11 +13,11 @@ function FeedFavoriteScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Suspense fallback={
-        <Loader/>
-      }>
-        <FeedFavoriteList/>
-      </Suspense>
+      <RetryErrorBoundary>
+        <Suspense fallback={<Loader/>}>
+          <FeedFavoriteList/>
+        </Suspense>
+      </RetryErrorBoundary>
     </SafeAreaView>
   )
 }
