@@ -25,4 +25,4 @@ function usegetInfinitePosts(
   })
 }
 
-export default useSuspenseInfiniteQuery;
+export default usegetInfinitePosts;
