@@ -1,8 +1,9 @@
+import Loader from '@/components/common/Loader';
 import FeedFavoriteList from '@/components/feed/FeedFavoriteList';
 import { colors } from '@/constants';
 import useThemeStore from '@/store/useThemeStore';
 import { ThemeMode } from '@/types/common';
-import React from 'react';
+import React, { Suspense } from 'react';
 import {SafeAreaView, StyleSheet} from 'react-native';
 
 function FeedFavoriteScreen() {
@@ -11,7 +12,11 @@ function FeedFavoriteScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <FeedFavoriteList/>
+      <Suspense fallback={
+        <Loader/>
+      }>
+        <FeedFavoriteList/>
+      </Suspense>
     </SafeAreaView>
   )
 }

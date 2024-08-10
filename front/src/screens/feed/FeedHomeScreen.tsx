@@ -1,11 +1,16 @@
+import Loader from '@/components/common/Loader';
 import FeedList from '@/components/feed/FeedList';
-import React from 'react';
+import React, { Suspense } from 'react';
 import {SafeAreaView, StyleSheet } from 'react-native';
 
 const FeedHomeScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
-      <FeedList/>
+      <Suspense fallback={
+        <Loader/>
+      }>
+        <FeedList/>
+      </Suspense>
     </SafeAreaView>
   )
 }
