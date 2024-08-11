@@ -3,7 +3,6 @@ import React, { PropsWithChildren } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import {StyleSheet, Text, View} from 'react-native';
 import CustomButton from './CustomButton';
-import { useTheme } from '@react-navigation/native';
 import useThemeStore from '@/store/useThemeStore';
 import { ThemeMode } from '@/types/common';
 import { colors } from '@/constants';
