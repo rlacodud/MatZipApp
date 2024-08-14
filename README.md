@@ -6,7 +6,7 @@
 
 ## 소개
 
-Matzipapp은 나만의 맛집을 기록할 수 있는 Reacti Native 프로젝트입니다.
+Matzipapp은 나만의 맛집을 기록할 수 있는 React Native 프로젝트입니다.
 
 ### 주요 기능
 
