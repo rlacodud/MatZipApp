@@ -4,7 +4,17 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Base64.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>CocoaAsyncSocket.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>CodePush.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -70,6 +80,11 @@
 			<false/>
 		</dict>
 		<key>GoogleMaps.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>JWT.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -340,6 +355,11 @@
 			<false/>
 		</dict>
 		<key>ReactCommon.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>SSZipArchive.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
