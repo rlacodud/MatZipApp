@@ -7,7 +7,11 @@
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",
-    "test": "jest"
+    "test": "jest",
+    "appcenter-key:android": "appcenter codepush list -a chaeng/matzip-android -k",
+    "appcenter-key:ios": "appcenter codepush list -a chaeng/matzip-ios -k",
+    "codepush:android": "appcenter codepush release-react -a chaeng/matzip-android -d Staging -s -o ./build -m -t 1.0",
+    "codepush:ios": "appcenter codepush release-react -a chaeng/matzip-ios -d Staging -s -o ./build -m -t 1.0"
   },
   "dependencies": {
     "@invertase/react-native-apple-authentication": "^2.3.0",
